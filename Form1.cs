@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,24 @@ namespace TpWinForms
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            BusinessArticle business = new BusinessArticle();
+            List<Article> articlelist = new List<Article>();
+
+            try
+            {
+                articlelist = business.list();
+                dgvArticles.DataSource = articlelist;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }

@@ -5,6 +5,10 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tp-winform-equipo-3A", "tp-winform-equipo-3A.csproj", "{740D5D2D-B79E-43E8-9A71-92529E4239DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{0C76C215-84F5-4F27-983C-573748881C68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{45EBCAB5-C37E-4E83-B3A5-AD2AE1B27F46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{740D5D2D-B79E-43E8-9A71-92529E4239DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{740D5D2D-B79E-43E8-9A71-92529E4239DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{740D5D2D-B79E-43E8-9A71-92529E4239DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C76C215-84F5-4F27-983C-573748881C68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C76C215-84F5-4F27-983C-573748881C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C76C215-84F5-4F27-983C-573748881C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C76C215-84F5-4F27-983C-573748881C68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45EBCAB5-C37E-4E83-B3A5-AD2AE1B27F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45EBCAB5-C37E-4E83-B3A5-AD2AE1B27F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45EBCAB5-C37E-4E83-B3A5-AD2AE1B27F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45EBCAB5-C37E-4E83-B3A5-AD2AE1B27F46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
