@@ -17,7 +17,7 @@ namespace Business
 
             try
             {
-                data.setQuery("select Id,Codigo , Nombre, Descripcion, Precio from ARTICULOS");
+                data.setQuery("select A.Id, A.Codigo , A.Nombre, A.Descripcion, A.Precio, I.ImagenUrl from ARTICULOS A, IMAGENES I");
                 data.executeRead();
 
                 while (data.Reader.Read())
@@ -28,6 +28,7 @@ namespace Business
                     aux.Name = (string)data.Reader["Nombre"];
                     aux.Description = (string)data.Reader["Descripcion"];
                     aux.Price = (decimal)data.Reader["Precio"];
+                    aux.UrlImage = (string)data.Reader["ImagenUrl"];
 
                     articleList.Add(aux);
                 }
