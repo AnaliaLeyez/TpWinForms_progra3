@@ -17,7 +17,7 @@ namespace Business
 
             try
             {
-                data.setQuery("select Id,Codigo , Nombre, Descripcion, Precio from ARTICULOS");
+                data.setQuery("select A.Id, A.Codigo , A.Nombre, A.Descripcion, A.Precio, I.ImagenUrl from ARTICULOS A, IMAGENES I where I.Id = A.Id");
                 data.executeRead();
 
                 while (data.Reader.Read())
@@ -28,6 +28,10 @@ namespace Business
                     aux.Name = (string)data.Reader["Nombre"];
                     aux.Description = (string)data.Reader["Descripcion"];
                     aux.Price = (decimal)data.Reader["Precio"];
+
+                    string urlImage = (string)data.Reader["ImagenUrl"];
+                    aux.UrlImage = new List<string>();
+                    aux.UrlImage.Add(urlImage);
 
                     articleList.Add(aux);
                 }
@@ -43,6 +47,12 @@ namespace Business
             {
                 data.closeConnection();
             }
+        }
+
+        public void AddArticle(Article article)
+        {
+            DataAccess data = new DataAccess();
+            
         }
     }
 }

@@ -15,7 +15,10 @@ namespace Model
 
         public string Description { get; set; }
 
-        public string UrlImage { get; set; }
+        public Brand Marca { get; set; }
+        public Category Categoria { get; set; }
+
+        public List<string> UrlImage { get; set; }
 
         public decimal Price { get; set; }
     }

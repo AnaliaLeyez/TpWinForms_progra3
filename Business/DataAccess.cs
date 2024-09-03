@@ -26,7 +26,7 @@ namespace Business
             _command = new SqlCommand();
         }
 
-        public void setQuery(String query)
+        public void setQuery(string query)
         {
             _command.CommandType = System.Data.CommandType.Text;
             _command.CommandText = query;
