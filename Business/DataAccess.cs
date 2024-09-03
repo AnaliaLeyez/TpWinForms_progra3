@@ -23,11 +23,11 @@ namespace Business
 
         public DataAccess()
         {
-            _connection = new SqlConnection("server=.\\SQLEXPRESS04; database = CATALOGO_P3_DB; integrated security = true");
+            _connection = new SqlConnection("server=.\\SQLEXPRESS; database = CATALOGO_P3_DB; integrated security = true");
             _command = new SqlCommand();
         }
 
-        public void setQuery(String query)
+        public void setQuery(string query)
         {
             _command.CommandType = System.Data.CommandType.Text;
             _command.CommandText = query;

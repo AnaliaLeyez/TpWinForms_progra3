@@ -48,7 +48,7 @@ namespace TpWinForms
                 dgvArticles.DataSource = articlelist;
 
                 Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-                LoadImg(selected.UrlImage);
+                LoadImg(selected.UrlImage[0]);
             }
             catch (Exception ex)
             {
@@ -70,7 +70,13 @@ namespace TpWinForms
         private void dgvArticles_SelectionChanged(object sender, EventArgs e)
         {
             Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            LoadImg(selected.UrlImage);
+            LoadImg(selected.UrlImage[0]);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            FormNewArticle form = new FormNewArticle();
+            form.ShowDialog();
         }
     }
 }
