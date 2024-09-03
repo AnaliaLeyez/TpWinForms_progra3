@@ -15,7 +15,6 @@ namespace Business
 
         private SqlDataReader _reader;
 
-
         public SqlDataReader Reader
         {
             get { return _reader; }
