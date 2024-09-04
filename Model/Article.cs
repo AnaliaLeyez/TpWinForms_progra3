@@ -15,8 +15,8 @@ namespace Model
 
         public string Description { get; set; }
 
-        public Brand Marca { get; set; }
-        public Category Categoria { get; set; }
+        public Brand Brand { get; set; }
+        public Category Category { get; set; }
 
         public List<string> UrlImage { get; set; }
 

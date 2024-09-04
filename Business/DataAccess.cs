@@ -47,6 +47,21 @@ namespace Business
 
         }
 
+        public void executeAction()
+        {
+            _command.Connection = _connection;
+            try
+            {
+                _connection.Open();
+                _command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
 
         public void setParameter(string name, object value)
         { 

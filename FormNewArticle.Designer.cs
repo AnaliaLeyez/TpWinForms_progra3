@@ -44,6 +44,10 @@
             this.lBoxUrl = new System.Windows.Forms.ListBox();
             this.ptbUrlImagen = new System.Windows.Forms.PictureBox();
             this.btnAddNew = new System.Windows.Forms.Button();
+            this.lblBrand = new System.Windows.Forms.Label();
+            this.lblCategory = new System.Windows.Forms.Label();
+            this.cmbBrand = new System.Windows.Forms.ComboBox();
+            this.cmbCategory = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ptbUrlImagen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,7 +91,7 @@
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(30, 161);
+            this.lblDescription.Location = new System.Drawing.Point(30, 232);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(60, 13);
             this.lblDescription.TabIndex = 4;
@@ -116,10 +120,10 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(96, 158);
+            this.txtDescription.Location = new System.Drawing.Point(96, 242);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(196, 173);
+            this.txtDescription.Size = new System.Drawing.Size(196, 102);
             this.txtDescription.TabIndex = 8;
             // 
             // btnCancel
@@ -171,7 +175,7 @@
             // 
             this.ptbUrlImagen.Location = new System.Drawing.Point(398, 161);
             this.ptbUrlImagen.Name = "ptbUrlImagen";
-            this.ptbUrlImagen.Size = new System.Drawing.Size(196, 170);
+            this.ptbUrlImagen.Size = new System.Drawing.Size(196, 183);
             this.ptbUrlImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ptbUrlImagen.TabIndex = 14;
             this.ptbUrlImagen.TabStop = false;
@@ -186,11 +190,51 @@
             this.btnAddNew.UseVisualStyleBackColor = true;
             this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
+            // lblBrand
+            // 
+            this.lblBrand.AutoSize = true;
+            this.lblBrand.Location = new System.Drawing.Point(55, 164);
+            this.lblBrand.Name = "lblBrand";
+            this.lblBrand.Size = new System.Drawing.Size(35, 13);
+            this.lblBrand.TabIndex = 16;
+            this.lblBrand.Text = "Brand";
+            // 
+            // lblCategory
+            // 
+            this.lblCategory.AutoSize = true;
+            this.lblCategory.Location = new System.Drawing.Point(42, 200);
+            this.lblCategory.Name = "lblCategory";
+            this.lblCategory.Size = new System.Drawing.Size(49, 13);
+            this.lblCategory.TabIndex = 17;
+            this.lblCategory.Text = "Category";
+            // 
+            // cmbBrand
+            // 
+            this.cmbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBrand.FormattingEnabled = true;
+            this.cmbBrand.Location = new System.Drawing.Point(96, 161);
+            this.cmbBrand.Name = "cmbBrand";
+            this.cmbBrand.Size = new System.Drawing.Size(196, 21);
+            this.cmbBrand.TabIndex = 18;
+            // 
+            // cmbCategory
+            // 
+            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategory.FormattingEnabled = true;
+            this.cmbCategory.Location = new System.Drawing.Point(96, 197);
+            this.cmbCategory.Name = "cmbCategory";
+            this.cmbCategory.Size = new System.Drawing.Size(196, 21);
+            this.cmbCategory.TabIndex = 19;
+            // 
             // FormNewArticle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(701, 443);
+            this.Controls.Add(this.cmbCategory);
+            this.Controls.Add(this.cmbBrand);
+            this.Controls.Add(this.lblCategory);
+            this.Controls.Add(this.lblBrand);
             this.Controls.Add(this.btnAddNew);
             this.Controls.Add(this.ptbUrlImagen);
             this.Controls.Add(this.lBoxUrl);
@@ -235,5 +279,9 @@
         private System.Windows.Forms.ListBox lBoxUrl;
         private System.Windows.Forms.PictureBox ptbUrlImagen;
         private System.Windows.Forms.Button btnAddNew;
+        private System.Windows.Forms.Label lblBrand;
+        private System.Windows.Forms.Label lblCategory;
+        private System.Windows.Forms.ComboBox cmbBrand;
+        private System.Windows.Forms.ComboBox cmbCategory;
     }
 }

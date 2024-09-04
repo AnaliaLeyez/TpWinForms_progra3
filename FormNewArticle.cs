@@ -1,4 +1,5 @@
 ﻿using Business;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,25 @@ namespace TpWinForms
 
         private void FormNewArticle_Load(object sender, EventArgs e)
         {
+            BusinessCategory businessCategory = new BusinessCategory();
+            BusinessBrand businessBrand = new BusinessBrand();
 
+            try
+            {
+                cmbBrand.DataSource = businessBrand.list();
+                cmbBrand.ValueMember = "Id";
+                cmbBrand.DisplayMember= "Description";
+                cmbCategory.DataSource = businessCategory.list();
+
+                cmbCategory.ValueMember = "Id";
+                cmbCategory.DisplayMember = "Description";
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -53,7 +72,34 @@ namespace TpWinForms
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
-            DataAccess data = new DataAccess();
+            
+            Article art = new Article(); 
+            BusinessArticle business = new BusinessArticle();
+            
+
+            try
+            {
+               
+                art.Code = txtCode.Text;
+                art.Name = txtName.Text;
+                art.Description = txtDescription.Text;
+                //art.UrlImage.Add(txtUrlImage.Text);
+                art.Price = decimal.Parse(txtPrice.Text);
+                art.Brand = (Brand)cmbBrand.SelectedItem;
+                art.Category = (Category)cmbCategory.SelectedItem;
+
+
+                business.AddArticle(art);
+                MessageBox.Show("Articulo agregado exitosamente");
+                Close();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
+
+       
     }
 }
