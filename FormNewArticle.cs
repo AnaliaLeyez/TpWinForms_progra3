@@ -14,9 +14,22 @@ namespace TpWinForms
 {
     public partial class FormNewArticle : Form
     {
+        private Article art = null;
         public FormNewArticle()
         {
             InitializeComponent();
+            Text = "Add";
+            lblTitle.Text = "Add new item";
+            btnOk.Text = "Add";
+        }
+
+        public FormNewArticle(Article art)
+        {
+            InitializeComponent();
+            this.art = art;
+            Text = "Modify";
+            lblTitle.Text = "Modify an existing item";
+            btnOk.Text = "Modify";
         }
 
         private void FormNewArticle_Load(object sender, EventArgs e)
@@ -30,10 +43,21 @@ namespace TpWinForms
                 cmbBrand.ValueMember = "Id";
                 cmbBrand.DisplayMember= "Description";
                 cmbCategory.DataSource = businessCategory.list();
-
                 cmbCategory.ValueMember = "Id";
                 cmbCategory.DisplayMember = "Description";
 
+                if (art != null)
+                {
+                    txtCode.Text = art.Code;
+                    txtName.Text = art.Name;
+                    txtPrice.Text = art.Price.ToString("0.00");
+                    cmbBrand.SelectedValue = art.Brand.Id;
+                    cmbCategory.SelectedValue = art.Category.Id;
+                    txtDescription.Text = art.Description;
+                    txtUrlImage.Text = art.UrlImage.ToString();
+
+                    loadImage(art.UrlImage[0]);
+                }
             }
             catch (Exception ex)
             {
@@ -56,7 +80,6 @@ namespace TpWinForms
                 lBoxUrl.Items.Add(urlImage);
                 txtUrlImage.Clear();
             }
-
         }
 
         private void lBoxUrl_SelectedIndexChanged(object sender, EventArgs e)
@@ -64,42 +87,55 @@ namespace TpWinForms
             if(lBoxUrl.SelectedItem != null)
             {
                 string imageUrl = lBoxUrl.SelectedItem.ToString();
-                ptbUrlImagen.Load(imageUrl);
+                ptbImage.Load(imageUrl);
             }
-
-            
         }
 
-        private void btnAddNew_Click(object sender, EventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
-            
-            Article art = new Article(); 
+            if (art == null)
+                art = new Article();
             BusinessArticle business = new BusinessArticle();
-            
 
             try
             {
-               
                 art.Code = txtCode.Text;
                 art.Name = txtName.Text;
                 art.Description = txtDescription.Text;
-                //art.UrlImage.Add(txtUrlImage.Text);
+             //   art.UrlImage.Add(lBoxUrl.Items[0].ToString());  //CORREGIR
                 art.Price = decimal.Parse(txtPrice.Text);
                 art.Brand = (Brand)cmbBrand.SelectedItem;
                 art.Category = (Category)cmbCategory.SelectedItem;
 
-
-                business.AddArticle(art);
-                MessageBox.Show("Articulo agregado exitosamente");
+                if (art.Id != 0)
+                {
+                    business.modifyArticle(art);
+                    MessageBox.Show("Successfully modified");
+                }
+                else
+                {
+                    business.AddArticle(art);
+                    MessageBox.Show("Successfully added");
+                }
                 Close();
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
 
-       
+        private void loadImage(string imagen)
+        {
+            try
+            {
+                ptbImage.Load(imagen);
+            }
+            catch (Exception ex)
+            {
+                ptbImage.Load("https://faculty.eng.ufl.edu/elliot-douglas/wp-content/uploads/sites/70/2015/11/img-placeholder.png");
+            }
+        }
+
     }
 }

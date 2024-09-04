@@ -5,27 +5,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Business
 {
-    public class BusinessBrand
+    public class BusinessImage
     {
-        public List<Brand> list()
+        public List<Image> list()
         {
-            List<Brand> list = new List<Brand>();
+            List<Image> list = new List<Image>();
             DataAccess data = new DataAccess();
 
             try
             {
-                data.setQuery("select Id,Descripcion from MARCAS");
+                data.setQuery("select Id, IdArticulo, ImagenUrl from IMAGENES");
                 data.executeRead();
-
 
                 while (data.Reader.Read())
                 {
-                    Brand aux = new Brand();
+                    Image aux = new Image();
                     aux.Id = (int)data.Reader["Id"];
-                    aux.Description = (string)data.Reader["Descripcion"];
+                    aux.IdArticle = (int)data.Reader["IdArticulo"];
+                    aux.UrlImage = (string)data.Reader["ImagenUrl"];
 
                     list.Add(aux);
                 }

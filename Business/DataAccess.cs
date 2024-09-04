@@ -22,7 +22,7 @@ namespace Business
 
         public DataAccess()
         {
-            _connection = new SqlConnection("server=.\\SQLEXPRESS; database = CATALOGO_P3_DB; integrated security = true");
+            _connection = new SqlConnection("server=.\\SQLEXPRESS04; database = CATALOGO_P3_DB; integrated security = true");
             _command = new SqlCommand();
         }
 
