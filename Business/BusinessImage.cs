@@ -40,5 +40,37 @@ namespace Business
                 data.closeConnection();
             }
         }
+
+
+        public void AddImage(List<string> images, int id)
+        {
+            DataAccess data = new DataAccess();
+
+            try
+            {
+                foreach(var img in images)
+                {
+                    data.setQuery("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@IdArticulo, @ImagenUrl)");
+                    data.setParameter("@IdArticulo", id);
+                    data.setParameter("@ImagenUrl", img);
+                    data.executeAction();
+
+                    data.clearParams();
+                    data.closeConnection();
+                    
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex ;
+            }
+            finally
+            {
+                data.closeConnection();
+            }
+        }
     }
 }

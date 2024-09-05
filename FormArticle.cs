@@ -12,10 +12,10 @@ using System.Windows.Forms;
 
 namespace TpWinForms
 {
-    public partial class FormNewArticle : Form
+    public partial class FormArticle : Form
     {
         private Article art = null;
-        public FormNewArticle()
+        public FormArticle()
         {
             InitializeComponent();
             Text = "Add";
@@ -23,7 +23,7 @@ namespace TpWinForms
             btnOk.Text = "Add";
         }
 
-        public FormNewArticle(Article art)
+        public FormArticle(Article art)
         {
             InitializeComponent();
             this.art = art;
@@ -32,7 +32,7 @@ namespace TpWinForms
             btnOk.Text = "Modify";
         }
 
-        private void FormNewArticle_Load(object sender, EventArgs e)
+        private void FormArticle_Load(object sender, EventArgs e)
         {
             BusinessCategory businessCategory = new BusinessCategory();
             BusinessBrand businessBrand = new BusinessBrand();
@@ -54,9 +54,13 @@ namespace TpWinForms
                     cmbBrand.SelectedValue = art.Brand.Id;
                     cmbCategory.SelectedValue = art.Category.Id;
                     txtDescription.Text = art.Description;
-                    txtUrlImage.Text = art.UrlImage.ToString();
 
-                    loadImage(art.UrlImage[0]);
+                    foreach(var item in art.UrlImages)
+                    {
+                      lBoxUrl.Items.Add(item);
+                    }
+
+                    loadImage(art.UrlImages[0]);
                 }
             }
             catch (Exception ex)
@@ -88,6 +92,7 @@ namespace TpWinForms
             {
                 string imageUrl = lBoxUrl.SelectedItem.ToString();
                 ptbImage.Load(imageUrl);
+                btnDeleteImg.Enabled = true;
             }
         }
 
@@ -96,6 +101,7 @@ namespace TpWinForms
             if (art == null)
                 art = new Article();
             BusinessArticle business = new BusinessArticle();
+            BusinessImage businessImage = new BusinessImage();
 
             try
             {
@@ -106,6 +112,13 @@ namespace TpWinForms
                 art.Price = decimal.Parse(txtPrice.Text);
                 art.Brand = (Brand)cmbBrand.SelectedItem;
                 art.Category = (Category)cmbCategory.SelectedItem;
+                art.UrlImages = new List<string>();
+
+              
+                foreach(var item in lBoxUrl.Items)
+                {
+                    art.UrlImages.Add(item.ToString());
+                }
 
                 if (art.Id != 0)
                 {
@@ -137,5 +150,14 @@ namespace TpWinForms
             }
         }
 
+        private void btnDeleteImg_Click(object sender, EventArgs e)
+        {
+            if(lBoxUrl.SelectedItem != null)
+            {
+                lBoxUrl.Items.Remove(lBoxUrl.SelectedItem);
+                ptbImage.Image = null;
+                btnDeleteImg.Enabled = false;
+            }
+        }
     }
 }

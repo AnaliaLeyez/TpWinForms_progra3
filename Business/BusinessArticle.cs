@@ -20,7 +20,11 @@ namespace Business
 
             try
             {
-                data.setQuery("select A.Id, A.Codigo , A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, I.ImagenUrl, M.Descripcion Brand, C.Descripcion Category from ARTICULOS A, IMAGENES I, MARCAS M, CATEGORIAS C where (I.Id = A.Id and M.Id = A.Id and C.Id = A.Id)");
+                data.setQuery("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, " +
+                              "(SELECT TOP 1 I.ImagenUrl  FROM IMAGENES I  WHERE I.IdArticulo = A.Id " +
+                              "ORDER BY I.ImagenUrl) AS ImagenUrl, M.Descripcion AS Brand, C.Descripcion AS Category " +
+                              "FROM ARTICULOS A, MARCAS M, CATEGORIAS C " +
+                              "WHERE M.Id = A.IdMarca AND C.Id = A.IdCategoria");
                 data.executeRead();
 
                 while (data.Reader.Read())
@@ -38,8 +42,9 @@ namespace Business
                     aux.Category.Description = (string)data.Reader["Category"];
                     aux.Price = (decimal)data.Reader["Precio"];
 
-                    string urlImage = (string)data.Reader["ImagenUrl"];
-                    aux.UrlImage = new List<string>
+                    string urlImage = data.Reader["ImagenUrl"] != DBNull.Value ? (string)data.Reader["ImagenUrl"] : "";
+
+                    aux.UrlImages = new List<string>
                     {
                         urlImage
                     };
@@ -63,9 +68,10 @@ namespace Business
         public void AddArticle(Article article)
         {
             DataAccess data = new DataAccess();
+            BusinessImage businessImage = new BusinessImage();
             try
             {
-                data.setQuery("insert into ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) values(@Code, @Name, @Description, @idBrand , @idCategory, @Price)");
+                data.setQuery("insert into ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) OUTPUT INSERTED.Id values(@Code, @Name, @Description, @idBrand , @idCategory, @Price)");
                // data.setQuery("insert into IMAGENES(Id, IdArticulo, ImagenUrl) values(1, @Code, @urlImage)");
                 
                 data.setParameter("@Code", article.Code);
@@ -75,7 +81,14 @@ namespace Business
                 data.setParameter("@idCategory", article.Category.Id);
                // data.setParameter("@urlImage" , article.UrlImage);
                 data.setParameter("@Price", article.Price);
-                data.executeAction();
+                //data.executeAction();
+
+                int id = data.getIdEcalar();
+                data.closeConnection();
+
+                businessImage.AddImage(article.UrlImages, id);
+
+                
                 
             }
             catch (Exception ex)

@@ -75,12 +75,12 @@ namespace TpWinForms
         private void dgvArticles_SelectionChanged(object sender, EventArgs e)
         {
             Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            LoadImg(selected.UrlImage[0]);
+            LoadImg(selected.UrlImages[0]);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            FormNewArticle form = new FormNewArticle();
+            FormArticle form = new FormArticle();
             form.ShowDialog();
             LoadGrid();
         }
@@ -88,7 +88,7 @@ namespace TpWinForms
         private void btnModify_Click(object sender, EventArgs e)
         {
             Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            FormNewArticle form = new FormNewArticle(art);
+            FormArticle form = new FormArticle(art);
             form.ShowDialog();
             LoadGrid();
         }

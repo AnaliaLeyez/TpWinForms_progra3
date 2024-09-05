@@ -18,7 +18,7 @@ namespace Model
         public Brand Brand { get; set; }
         public Category Category { get; set; }
 
-        public List<string> UrlImage { get; set; }
+        public List<string> UrlImages { get; set; }
 
         public decimal Price { get; set; }
     }

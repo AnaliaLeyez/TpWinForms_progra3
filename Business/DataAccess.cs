@@ -22,7 +22,7 @@ namespace Business
 
         public DataAccess()
         {
-            _connection = new SqlConnection("server=.\\SQLEXPRESS04; database = CATALOGO_P3_DB; integrated security = true");
+            _connection = new SqlConnection("server=.\\SQLEXPRESS; database = CATALOGO_P3_DB; integrated security = true");
             _command = new SqlCommand();
         }
 
@@ -62,10 +62,22 @@ namespace Business
             }
         }
 
+        public int getIdEcalar()
+        {
+            _command.Connection = _connection;
+            _connection.Open();
+            return (int)_command.ExecuteScalar();
+        }
+
 
         public void setParameter(string name, object value)
         { 
             _command.Parameters.AddWithValue(name, value);
+        }
+
+        public void clearParams()
+        {
+            _command.Parameters.Clear();
         }
 
         public void closeConnection()
@@ -75,6 +87,8 @@ namespace Business
                 _reader.Close();
                 _connection.Close();
             }
+
+            _connection.Close();
         }
     }
 }
