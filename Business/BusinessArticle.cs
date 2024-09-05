@@ -130,6 +130,27 @@ namespace Business
             }
 
         }
+
+        public void deleteArticle(int id)
+        {
+            DataAccess data = new DataAccess();
+
+            try
+            {
+                data.setQuery("delete from ARTICULOS where id = @id");
+                data.setParameter("@id",id);
+                data.executeAction();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.closeConnection();
+            }
+        }
     }
 }
     

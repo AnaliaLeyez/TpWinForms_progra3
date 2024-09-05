@@ -34,7 +34,7 @@ namespace TpWinForms
             catch (Exception ex)
             {
 
-                throw ex;
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -43,16 +43,17 @@ namespace TpWinForms
             LoadGrid();
         }
 
-        private void LoadGrid() {
-        BusinessArticle business = new BusinessArticle();
+        private void LoadGrid()
+        {
+            BusinessArticle business = new BusinessArticle();
 
             try
             {
                 articlelist = business.list();
                 dgvArticles.DataSource = articlelist;
 
-             //   Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-             //   LoadImg(selected.UrlImage[0]);
+                //   Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
+                //   LoadImg(selected.UrlImage[0]);
             }
             catch (Exception ex)
             {
@@ -91,6 +92,28 @@ namespace TpWinForms
             FormArticle form = new FormArticle(art);
             form.ShowDialog();
             LoadGrid();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            BusinessArticle business = new BusinessArticle();
+            Article select;
+            try
+            {
+                DialogResult response = MessageBox.Show("Are you sure you want to delete?", "Eliminating", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (response == DialogResult.Yes)
+                {
+                    select = (Article)dgvArticles.CurrentRow.DataBoundItem;
+                    business.deleteArticle(select.Id);
+                    LoadGrid();
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
