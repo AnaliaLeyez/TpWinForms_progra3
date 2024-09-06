@@ -76,7 +76,7 @@ namespace TpWinForms
         private void dgvArticles_SelectionChanged(object sender, EventArgs e)
         {
             Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            LoadImg(selected.UrlImages[0]);
+            LoadImg(selected.UrlImages[0].UrlImage);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

@@ -15,6 +15,7 @@ namespace TpWinForms
     public partial class FormArticle : Form
     {
         private Article art = null;
+        private BusinessImage businessImage = null;
         public FormArticle()
         {
             InitializeComponent();
@@ -36,6 +37,12 @@ namespace TpWinForms
         {
             BusinessCategory businessCategory = new BusinessCategory();
             BusinessBrand businessBrand = new BusinessBrand();
+
+            if (art != null)
+            {
+                businessImage = new BusinessImage();
+                art.UrlImages = businessImage.list(art.Id);
+            }
 
             try
             {
@@ -60,7 +67,7 @@ namespace TpWinForms
                       lBoxUrl.Items.Add(item);
                     }
 
-                    loadImage(art.UrlImages[0]);
+                    loadImage(art.UrlImages[0].UrlImage);
                 }
             }
             catch (Exception ex)
@@ -112,12 +119,16 @@ namespace TpWinForms
                 art.Price = decimal.Parse(txtPrice.Text);
                 art.Brand = (Brand)cmbBrand.SelectedItem;
                 art.Category = (Category)cmbCategory.SelectedItem;
-                art.UrlImages = new List<string>();
+                art.UrlImages = new List<Model.Image>();
 
               
                 foreach(var item in lBoxUrl.Items)
                 {
-                    art.UrlImages.Add(item.ToString());
+                    Model.Image img = new Model.Image();
+                    img.UrlImage = item.ToString();
+                    img.IdArticle = art.Id;
+
+                    art.UrlImages.Add(img);
                 }
 
                 if (art.Id != 0)
@@ -152,11 +163,22 @@ namespace TpWinForms
 
         private void btnDeleteImg_Click(object sender, EventArgs e)
         {
-            if(lBoxUrl.SelectedItem != null)
+            if(lBoxUrl.SelectedItem != null && art == null)
             {
                 lBoxUrl.Items.Remove(lBoxUrl.SelectedItem);
                 ptbImage.Image = null;
                 btnDeleteImg.Enabled = false;
+            }
+
+            if(art != null)
+            {
+                DialogResult result = MessageBox.Show("Do you want to delete the image from the database, This action cannot be undone ?", "Delete image", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result == DialogResult.Yes)
+                {
+                    Model.Image img = (Model.Image)lBoxUrl.SelectedItem;
+                    businessImage.DeleteImage(img.Id);
+                    //Hay que ver como recargamos el form para que se actualice.
+                }
             }
         }
     }

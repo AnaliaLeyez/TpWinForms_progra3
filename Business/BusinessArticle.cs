@@ -20,11 +20,9 @@ namespace Business
 
             try
             {
-                data.setQuery("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, " +
-                              "(SELECT TOP 1 I.ImagenUrl  FROM IMAGENES I  WHERE I.IdArticulo = A.Id " +
-                              "ORDER BY I.ImagenUrl) AS ImagenUrl, M.Descripcion AS Brand, C.Descripcion AS Category " +
-                              "FROM ARTICULOS A, MARCAS M, CATEGORIAS C " +
-                              "WHERE M.Id = A.IdMarca AND C.Id = A.IdCategoria");
+                data.setQuery("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, I.ImagenUrl, I.Id AS IdImagen, M.Descripcion AS Brand, C.Descripcion AS Category" +
+                              " FROM ARTICULOS A JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria LEFT JOIN (SELECT I.Id, I.ImagenUrl, I.IdArticulo" +
+                              " FROM IMAGENES I WHERE I.Id IN (SELECT MIN(Id) FROM IMAGENES GROUP BY IdArticulo)) I ON I.IdArticulo = A.Id");
                 data.executeRead();
 
                 while (data.Reader.Read())
@@ -43,11 +41,12 @@ namespace Business
                     aux.Price = (decimal)data.Reader["Precio"];
 
                     string urlImage = data.Reader["ImagenUrl"] != DBNull.Value ? (string)data.Reader["ImagenUrl"] : "";
+                    int idImage = data.Reader["IdImagen"] != DBNull.Value ? (int)data.Reader["IdImagen"] : 0;
 
-                    aux.UrlImages = new List<string>
-                    {
-                        urlImage
-                    };
+                    aux.UrlImages = new List<Image>();
+
+                    aux.UrlImages.Add(new Image { Id = idImage, IdArticle = aux.Id, UrlImage = urlImage });
+
 
                     articleList.Add(aux);
                 }
@@ -86,7 +85,7 @@ namespace Business
                 int id = data.getIdEcalar();
                 data.closeConnection();
 
-                businessImage.AddImage(article.UrlImages, id);
+                businessImage.AddImage(article.UrlImages);
 
                 
                 

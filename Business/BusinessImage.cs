@@ -9,14 +9,22 @@ namespace Business
 {
     public class BusinessImage
     {
-        public List<Image> list()
+        public List<Image> list(int id = 0)
         {
             List<Image> list = new List<Image>();
             DataAccess data = new DataAccess();
 
             try
             {
-                data.setQuery("select Id, IdArticulo, ImagenUrl from IMAGENES");
+                string query = "SELECT Id, IdArticulo, ImagenUrl from IMAGENES";
+                data.setQuery(query);
+
+                if(id != 0)
+                {
+                    data.setQuery(query += " WHERE IdArticulo = @IdArticulo");
+                    data.setParameter("@IdArticulo", id);
+                }
+
                 data.executeRead();
 
                 while (data.Reader.Read())
@@ -41,8 +49,7 @@ namespace Business
             }
         }
 
-
-        public void AddImage(List<string> images, int id)
+        public void AddImage(List<Image> images)
         {
             DataAccess data = new DataAccess();
 
@@ -51,8 +58,8 @@ namespace Business
                 foreach(var img in images)
                 {
                     data.setQuery("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@IdArticulo, @ImagenUrl)");
-                    data.setParameter("@IdArticulo", id);
-                    data.setParameter("@ImagenUrl", img);
+                    data.setParameter("@IdArticulo", img.IdArticle);
+                    data.setParameter("@ImagenUrl", img.UrlImage);
                     data.executeAction();
 
                     data.clearParams();
@@ -66,6 +73,27 @@ namespace Business
             {
 
                 throw ex ;
+            }
+            finally
+            {
+                data.closeConnection();
+            }
+        }
+
+        public void DeleteImage(int id)
+        { 
+            DataAccess data = new DataAccess();
+
+            try
+            {
+                data.setQuery("DELETE FROM IMAGENES WHERE Id = @Id");
+                data.setParameter("@Id", id);
+                data.executeAction();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
             finally
             {
