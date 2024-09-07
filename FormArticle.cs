@@ -17,6 +17,7 @@ namespace TpWinForms
     {
         private Article art = null;
         private BusinessImage businessImage = null;
+        private string mode;
         public FormArticle()
         {
             InitializeComponent();
@@ -25,14 +26,37 @@ namespace TpWinForms
             btnOk.Text = "Add";
         }
 
-        public FormArticle(Article art)
+        public FormArticle(Article art, string mode)
         {
             InitializeComponent();
             this.art = art;
-            Text = "Modify";
-            lblTitle.Text = "Modify an existing item";
-            btnOk.Text = "Modify";
+            this.mode = mode;
+            SetMode(mode);
         }
+
+
+        public void SetMode(string mode)
+        {
+            switch (mode)
+            {
+                case "Modify":
+                    Text = "Modify";
+                    lblTitle.Text = "Modify an existing item";
+                    btnOk.Text = "Modify";
+                    break;
+                case "Details":
+                    Text = "Details";
+                    lblTitle.Text = "View item details";
+                    btnOk.Text = "Close";
+                    // Puedes deshabilitar controles o ajustar otros elementos aquí si es necesario
+                    btnOk.Visible = false; // Ejemplo para ocultar el botón en modo "Details"
+                    break;
+                default:
+                    throw new ArgumentException("Unknown mode", nameof(mode));
+            }
+        }
+
+
 
         private void FormArticle_Load(object sender, EventArgs e)
         {

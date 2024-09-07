@@ -87,10 +87,21 @@ namespace TpWinForms
             LoadGrid();
         }
 
+
+
         private void btnModify_Click(object sender, EventArgs e)
         {
+             
             Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            FormArticle form = new FormArticle(art);
+            FormArticle form = new FormArticle(art, "Modify");
+            form.ShowDialog();
+            LoadGrid();
+        }
+
+        private void btnDetails_Click(object sender, EventArgs e)
+        {
+            Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
+            FormArticle form = new FormArticle(art, "Details");
             form.ShowDialog();
             LoadGrid();
         }
@@ -165,7 +176,6 @@ namespace TpWinForms
                 if (field == "")
                 {
                     LoadGrid();
-                    
                     return;
                 }
                 string match = cboxMatch.SelectedItem.ToString();
@@ -200,5 +210,7 @@ namespace TpWinForms
             dgvArticles.Columns["Description"].Visible = false;
             dgvArticles.Columns["Id"].Visible = false;
         }
+
+        
     }
 }
