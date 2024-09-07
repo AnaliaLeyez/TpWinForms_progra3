@@ -15,7 +15,6 @@ namespace TpWinForms
     public partial class FormArticles : Form
     {
         List<Article> articlelist;
-        BusinessArticle business = new BusinessArticle();
         public FormArticles()
         {
             InitializeComponent();
@@ -28,6 +27,7 @@ namespace TpWinForms
         }
         private void LoadGrid()
         {
+            BusinessArticle business = new BusinessArticle();
             try
             {
                 articlelist = business.list();
@@ -156,6 +156,7 @@ namespace TpWinForms
         }
         private void advFilter()
         {
+            BusinessArticle business = new BusinessArticle();
             try
             {
                 string field = cboxField.SelectedItem.ToString();
@@ -178,6 +179,15 @@ namespace TpWinForms
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
             advFilter();
+        }
+
+        private void txtAdvFilter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+               advFilter();
+                e.Handled = true; // evita que se genere el sonido de la tecla Enter
+            }
         }
     }
 }
