@@ -38,7 +38,7 @@ namespace Business
                     aux.Category = new Category();
                     aux.Category.Id = (int)data.Reader["IdCategoria"];
                     aux.Category.Description = (string)data.Reader["Category"];
-                    aux.Price = (decimal)data.Reader["Precio"];
+                    aux.Price = Math.Round((decimal)data.Reader["Precio"], 2);
 
                     string urlImage = data.Reader["ImagenUrl"] != DBNull.Value ? (string)data.Reader["ImagenUrl"] : "";
                     int idImage = data.Reader["IdImagen"] != DBNull.Value ? (int)data.Reader["IdImagen"] : 0;
@@ -211,24 +211,23 @@ namespace Business
                         break;
                 }
 
-                data.setQuery(query);
-                data.executeRead();
+                this.data.setQuery(query);
+                this.data.executeRead();
 
-                SqlDataReader lector = data.Reader;
-                while (lector.Read())
+                while (data.Reader.Read())
                 {
                     Article aux = new Article();
-                    aux.Id = (int)lector["Id"];
-                    aux.Code = (string)lector["Codigo"];
-                    aux.Name = (string)lector["Nombre"];
-                    aux.Description = (string)lector["Descripcion"];
+                    aux.Id = (int)data.Reader["Id"];
+                    aux.Code = (string)data.Reader["Codigo"];
+                    aux.Name = (string)data.Reader["Nombre"];
+                    aux.Description = (string)data.Reader["Descripcion"];
                     aux.Brand = new Brand();
-                    aux.Brand.Id = (int)lector["IdMarca"];
-                    aux.Brand.Description = (string)lector["Marca"];
+                    aux.Brand.Id = (int)data.Reader["IdMarca"];
+                    aux.Brand.Description = (string)data.Reader["Marca"];
                     aux.Category = new Category();
-                    aux.Category.Id = (int)lector["IdCategoria"];
-                    aux.Category.Description = (string)lector["Categoria"];
-                    aux.Price = Math.Round((decimal)lector["Precio"], 2);
+                    aux.Category.Id = (int)data.Reader["IdCategoria"];
+                    aux.Category.Description = (string)data.Reader["Categoria"];
+                    aux.Price = Math.Round((decimal)data.Reader["Precio"], 2);
 
                     filteredArtList.Add(aux);
                 }
