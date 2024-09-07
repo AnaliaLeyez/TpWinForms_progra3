@@ -149,7 +149,10 @@ namespace Business
             List<Article> filteredArtList = new List<Article>();
             try
             {
-                string query = "select A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion Marca, A.IdCategoria, C.Descripcion Categoria, A.Precio From ARTICULOS A, CATEGORIAS C, MARCAS M Where M.Id = A.IdMarca And C.Id = A.IdCategoria And A.Precio>0 And ";
+                //string query = "Select A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion Marca, A.IdCategoria, C.Descripcion Categoria, A.Precio, I.ImagenUrl, I.Id From ARTICULOS A, CATEGORIAS C, MARCAS M, IMAGENES I Where M.Id = A.IdMarca And C.Id = A.IdCategoria And A.Precio>0 And A.Id = I.IdArticulo AND ";
+                string query = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, I.ImagenUrl, I.Id AS IdImagen, M.Descripcion AS Brand, C.Descripcion AS Category" +
+                    " FROM ARTICULOS A JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria LEFT JOIN (SELECT I.Id, I.ImagenUrl, I.IdArticulo" +
+                    " FROM IMAGENES I WHERE I.Id IN (SELECT MIN(Id) FROM IMAGENES GROUP BY IdArticulo)) I ON I.IdArticulo = A.Id WHERE ";
                 switch (field)
                 {
                     case "Name":
@@ -224,11 +227,16 @@ namespace Business
                     aux.Description = (string)data.Reader["Descripcion"];
                     aux.Brand = new Brand();
                     aux.Brand.Id = (int)data.Reader["IdMarca"];
-                    aux.Brand.Description = (string)data.Reader["Marca"];
+                    aux.Brand.Description = (string)data.Reader["Brand"];
                     aux.Category = new Category();
                     aux.Category.Id = (int)data.Reader["IdCategoria"];
-                    aux.Category.Description = (string)data.Reader["Categoria"];
+                    aux.Category.Description = (string)data.Reader["Category"];
                     aux.Price = Math.Round((decimal)data.Reader["Precio"], 2);
+
+                    string urlImage = data.Reader["ImagenUrl"] != DBNull.Value ? (string)data.Reader["ImagenUrl"] : "";
+                    int idImage = data.Reader["IdImagen"] != DBNull.Value ? (int)data.Reader["IdImagen"] : 0;
+
+                    aux.UrlImages = new List<Image> { new Image { Id = idImage, IdArticle = aux.Id, UrlImage = urlImage } };
 
                     filteredArtList.Add(aux);
                 }

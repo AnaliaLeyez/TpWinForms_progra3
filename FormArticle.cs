@@ -106,7 +106,12 @@ namespace TpWinForms
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (art == null)
+            {
                 art = new Article();
+                art.UrlImages = new List<Model.Image>();
+            }
+
+
             BusinessArticle business = new BusinessArticle();
             BusinessImage businessImage = new BusinessImage();
 
@@ -119,8 +124,6 @@ namespace TpWinForms
                 art.Price = decimal.Parse(txtPrice.Text);
                 art.Brand = (Brand)cmbBrand.SelectedItem;
                 art.Category = (Category)cmbCategory.SelectedItem;
-                art.UrlImages = new List<Model.Image>();
-
               
                 foreach(var item in lBoxUrl.Items)
                 {
