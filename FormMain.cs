@@ -23,8 +23,8 @@ namespace TpWinForms
 
         private void FormArticle_Load(object sender, EventArgs e)
         {
-            LoadGrid();
             LoadCboxField();
+            LoadGrid();
         }
         private void LoadGrid()
         {
@@ -72,10 +72,10 @@ namespace TpWinForms
             {
                 Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
                 //CHEQUEAR:
-                //if (!string.IsNullOrEmpty(selected.UrlImages[0].ToString()))
-                //    LoadImg(selected.UrlImages[0].UrlImage);
-                //else
-                //    LoadImg("");
+                if (!string.IsNullOrEmpty(selected.UrlImages[0].ToString()))
+                    LoadImg(selected.UrlImages[0].UrlImage);
+                else
+                    LoadImg("");
             }
         }
 
