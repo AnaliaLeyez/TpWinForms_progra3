@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace TpWinForms
@@ -37,6 +38,7 @@ namespace TpWinForms
         {
             BusinessCategory businessCategory = new BusinessCategory();
             BusinessBrand businessBrand = new BusinessBrand();
+            btnOk.Enabled = false;
 
             if (art != null)
             {
@@ -183,6 +185,31 @@ namespace TpWinForms
                     //Hay que ver como recargamos el form para que se actualice.
                 }
             }
+        }
+
+        private void validateField()
+        {
+            var vr = !string.IsNullOrEmpty(txtCode.Text) &&
+            !string.IsNullOrEmpty(txtPrice.Text) &&
+            !string.IsNullOrEmpty(txtName.Text);
+            btnOk.Enabled = vr;
+        }
+
+        private void txtCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            validateField();
+        }
+
+        private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            validateField();
+            Model.Validation.onlyNumbers((KeyPressEventArgs)e);
+        }
+
+        private void txtName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            validateField();
+            Model.Validation.onlyLetters((KeyPressEventArgs)e);
         }
     }
 }
