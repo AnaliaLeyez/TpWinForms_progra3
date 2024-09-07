@@ -115,5 +115,20 @@ namespace TpWinForms
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void txtFilter_TextChanged(object sender, EventArgs e)
+        {
+            List<Article> filteredList;
+
+            string filter = txtFilter.Text;
+            if (filter.Length >= 3)
+                filteredList = articlelist.FindAll(art => art.Name.ToUpper().Contains(filter.ToUpper()) || art.Brand.Description.ToUpper().Contains(filter.ToUpper()) || art.Category.Description.ToUpper().Contains(filter.ToUpper()) || art.Description.ToUpper().Contains(filter.ToUpper()) || art.Price.ToString().Contains(filter));
+            else
+                filteredList = articlelist;
+
+            dgvArticles.DataSource = null;
+            dgvArticles.DataSource = filteredList;
+
+        }
     }
 }
