@@ -43,9 +43,10 @@ namespace Business
                     string urlImage = data.Reader["ImagenUrl"] != DBNull.Value ? (string)data.Reader["ImagenUrl"] : "";
                     int idImage = data.Reader["IdImagen"] != DBNull.Value ? (int)data.Reader["IdImagen"] : 0;
 
-                    aux.UrlImages = new List<Image>();
-
-                    aux.UrlImages.Add(new Image { Id = idImage, IdArticle = aux.Id, UrlImage = urlImage });
+                    aux.UrlImages = new List<Image>
+                    {
+                        new Image { Id = idImage, IdArticle = aux.Id, UrlImage = urlImage }
+                    };
 
 
                     articleList.Add(aux);
