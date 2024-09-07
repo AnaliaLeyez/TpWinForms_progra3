@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -13,11 +14,10 @@ namespace Business
 {
     public class BusinessArticle
     {
+        List<Article> articleList = new List<Article>();
+        DataAccess data = new DataAccess();
         public List<Article> list()
         {
-            List<Article> articleList = new List<Article>();
-            DataAccess data = new DataAccess();
-
             try
             {
                 data.setQuery("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, I.ImagenUrl, I.Id AS IdImagen, M.Descripcion AS Brand, C.Descripcion AS Category" +
@@ -38,7 +38,7 @@ namespace Business
                     aux.Category = new Category();
                     aux.Category.Id = (int)data.Reader["IdCategoria"];
                     aux.Category.Description = (string)data.Reader["Category"];
-                    aux.Price = (decimal)data.Reader["Precio"];
+                    aux.Price = Math.Round((decimal)data.Reader["Precio"], 2);
 
                     string urlImage = data.Reader["ImagenUrl"] != DBNull.Value ? (string)data.Reader["ImagenUrl"] : "";
                     int idImage = data.Reader["IdImagen"] != DBNull.Value ? (int)data.Reader["IdImagen"] : 0;
@@ -66,7 +66,6 @@ namespace Business
 
         public void AddArticle(Article article)
         {
-            DataAccess data = new DataAccess();
             BusinessImage businessImage = new BusinessImage();
             try
             {
@@ -86,9 +85,6 @@ namespace Business
                 data.closeConnection();
 
                 businessImage.AddImage(article.UrlImages);
-
-                
-                
             }
             catch (Exception ex)
             {
@@ -103,7 +99,6 @@ namespace Business
 
         public void modifyArticle(Article article)
         {
-            DataAccess data = new DataAccess();
             try
             {
                 data.setQuery("update ARTICULOS set Codigo=@Code, Nombre=@Name, Descripcion=@Description, IdMarca=@idBrand, IdCategoria=@idCategory, Precio=@Price where Id=@Id");
@@ -132,8 +127,6 @@ namespace Business
 
         public void deleteArticle(int id)
         {
-            DataAccess data = new DataAccess();
-
             try
             {
                 data.setQuery("delete from ARTICULOS where id = @id");
@@ -143,6 +136,105 @@ namespace Business
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+            finally
+            {
+                data.closeConnection();
+            }
+        }
+        public List<Article> filter(string field, string match, string filterText)
+        {
+            List<Article> filteredArtList = new List<Article>();
+            try
+            {
+                string query = "select A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion Marca, A.IdCategoria, C.Descripcion Categoria, A.Precio From ARTICULOS A, CATEGORIAS C, MARCAS M Where M.Id = A.IdMarca And C.Id = A.IdCategoria And A.Precio>0 And ";
+                switch (field)
+                {
+                    case "Name":
+                        switch (match)
+                        {
+                            case "Starts with":
+                                query += "Nombre like '" + filterText + "%'";
+                                break;
+                            case "End with":
+                                query += "Nombre like '%" + filterText + "'";
+                                break;
+                            default:
+                                query += "Nombre like '%" + filterText + "%'";
+                                break;
+                        }
+                        break;
+                    case "Brand":
+                        switch (match)
+                        {
+                            case "Starts with":
+                                query += "M.Descripcion like '" + filterText + "%'";
+                                break;
+                            case "End with":
+                                query += "M.Descripcion like '%" + filterText + "'";
+                                break;
+                            default:
+                                query += "M.Descripcion like '%" + filterText + "%'";
+                                break;
+                        }
+                        break;
+                    case "Price":
+                        filterText = filterText.Replace(',', '.');
+                        switch (match)
+                        {
+                            case "Less than":
+                                query += "Precio < " + filterText;
+                                break;
+                            case "Greater than":
+                                query += "Precio > " + filterText;
+                                break;
+                            default:
+                                query += "Precio = " + filterText;
+                                break;
+                        }
+                        break;
+                    case "Category":
+                    default:
+                        switch (match)
+                        {
+                            case "Starts with":
+                                query += "C.Descripcion like '" + filterText + "%'";
+                                break;
+                            case "End with":
+                                query += "C.Descripcion like '%" + filterText + "'";
+                                break;
+                            default:
+                                query += "C.Descripcion like '%" + filterText + "%'";
+                                break;
+                        }
+                        break;
+                }
+
+                this.data.setQuery(query);
+                this.data.executeRead();
+
+                while (data.Reader.Read())
+                {
+                    Article aux = new Article();
+                    aux.Id = (int)data.Reader["Id"];
+                    aux.Code = (string)data.Reader["Codigo"];
+                    aux.Name = (string)data.Reader["Nombre"];
+                    aux.Description = (string)data.Reader["Descripcion"];
+                    aux.Brand = new Brand();
+                    aux.Brand.Id = (int)data.Reader["IdMarca"];
+                    aux.Brand.Description = (string)data.Reader["Marca"];
+                    aux.Category = new Category();
+                    aux.Category.Id = (int)data.Reader["IdCategoria"];
+                    aux.Category.Description = (string)data.Reader["Categoria"];
+                    aux.Price = Math.Round((decimal)data.Reader["Precio"], 2);
+
+                    filteredArtList.Add(aux);
+                }
+                return filteredArtList;
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             finally

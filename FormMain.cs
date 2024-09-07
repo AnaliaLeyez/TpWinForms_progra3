@@ -15,52 +15,45 @@ namespace TpWinForms
     public partial class FormArticles : Form
     {
         List<Article> articlelist;
+        BusinessArticle business = new BusinessArticle();
         public FormArticles()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            BusinessArticle business = new BusinessArticle();
-            List<Article> articlelist = new List<Article>();
-
-            try
-            {
-                articlelist = business.list();
-                dgvArticles.DataSource = articlelist;
-
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
         private void FormArticle_Load(object sender, EventArgs e)
         {
             LoadGrid();
+            LoadCboxField();
         }
-
         private void LoadGrid()
         {
-            BusinessArticle business = new BusinessArticle();
-
             try
             {
                 articlelist = business.list();
                 dgvArticles.DataSource = articlelist;
-
-                //   Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-                //   LoadImg(selected.UrlImage[0]);
+                //CHEQUEAR:
+                if (dgvArticles.CurrentRow != null)
+                {
+                    Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
+                    if (selected.UrlImages.Count > 0)
+                        LoadImg(selected.UrlImages[0].UrlImage);
+                    else
+                        LoadImg("");
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
+        private void LoadCboxField()
+        {
+            cboxField.Items.Add("Name");
+            cboxField.Items.Add("Brand");
+            cboxField.Items.Add("Price");
+            cboxField.Items.Add("Category");
+        }
         private void LoadImg(string imagen)
         {
             try
@@ -75,8 +68,15 @@ namespace TpWinForms
 
         private void dgvArticles_SelectionChanged(object sender, EventArgs e)
         {
-            Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            LoadImg(selected.UrlImages[0].UrlImage);
+            if (dgvArticles.CurrentRow != null)
+            {
+                Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
+                //CHEQUEAR:
+                //if (!string.IsNullOrEmpty(selected.UrlImages[0].ToString()))
+                //    LoadImg(selected.UrlImages[0].UrlImage);
+                //else
+                //    LoadImg("");
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -114,6 +114,70 @@ namespace TpWinForms
 
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void txtFilter_TextChanged(object sender, EventArgs e)
+        {
+            List<Article> filteredList;
+
+            string filter = txtFilter.Text;
+            if (filter.Length >= 3)
+                filteredList = articlelist.FindAll(art => art.Name.ToUpper().Contains(filter.ToUpper()) || art.Brand.Description.ToUpper().Contains(filter.ToUpper()) || art.Category.Description.ToUpper().Contains(filter.ToUpper()) || art.Description.ToUpper().Contains(filter.ToUpper()) || art.Price.ToString().Contains(filter));
+            else
+                filteredList = articlelist;
+
+            dgvArticles.DataSource = null;
+            dgvArticles.DataSource = filteredList;
+
+        }
+
+        private void cboxField_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboxMatch.Items.Clear();
+            if (cboxField.SelectedIndex != -1)
+            {
+                string field = cboxField.SelectedItem.ToString();
+                switch (field)
+                {
+                    case "Price":
+                        cboxMatch.Items.Add("Less than");
+                        cboxMatch.Items.Add("Greater than");
+                        cboxMatch.Items.Add("Equals to");
+                        break;
+                    default:
+                        cboxMatch.Items.Add("Starts with");
+                        cboxMatch.Items.Add("End with");
+                        cboxMatch.Items.Add("Contains");
+                        break;
+                }
+            }
+            else
+                cboxMatch.Items.Clear();
+        }
+        private void advFilter()
+        {
+            try
+            {
+                string field = cboxField.SelectedItem.ToString();
+                if (field == "")
+                {
+                    LoadGrid();
+                    return;
+                }
+                string match = cboxMatch.SelectedItem.ToString();
+                string filterText = txtAdvFilter.Text;
+                dgvArticles.DataSource = business.filter(field, match, filterText);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            advFilter();
         }
     }
 }
