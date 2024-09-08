@@ -32,6 +32,7 @@ namespace TpWinForms
             {
                 articlelist = business.list();
                 dgvArticles.DataSource = articlelist;
+                hideColumns();
                 //CHEQUEAR:
                 if (dgvArticles.CurrentRow != null)
                 {
@@ -86,10 +87,21 @@ namespace TpWinForms
             LoadGrid();
         }
 
+
+
         private void btnModify_Click(object sender, EventArgs e)
         {
+             
             Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            FormArticle form = new FormArticle(art);
+            FormArticle form = new FormArticle(art, "Modify");
+            form.ShowDialog();
+            LoadGrid();
+        }
+
+        private void btnDetails_Click(object sender, EventArgs e)
+        {
+            Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
+            FormArticle form = new FormArticle(art, "Details");
             form.ShowDialog();
             LoadGrid();
         }
@@ -128,6 +140,7 @@ namespace TpWinForms
 
             dgvArticles.DataSource = null;
             dgvArticles.DataSource = filteredList;
+            hideColumns();
 
         }
 
@@ -189,5 +202,15 @@ namespace TpWinForms
                 e.Handled = true; // evita que se genere el sonido de la tecla Enter
             }
         }
+
+        private void hideColumns()
+        {
+            //dgvArticles.Columns["UrlImages"].Visible = false;
+            dgvArticles.Columns["Code"].Visible = false;
+            dgvArticles.Columns["Description"].Visible = false;
+            dgvArticles.Columns["Id"].Visible = false;
+        }
+
+        
     }
 }
