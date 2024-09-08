@@ -113,7 +113,7 @@ namespace TpWinForms
 
 
             BusinessArticle business = new BusinessArticle();
-            BusinessImage businessImage = new BusinessImage();
+            //BusinessImage businessImage = new BusinessImage();
 
             try
             {
