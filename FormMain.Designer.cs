@@ -68,32 +68,34 @@
             this.dgvArticles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvArticles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvArticles.EnableHeadersVisualStyles = false;
-            this.dgvArticles.Location = new System.Drawing.Point(12, 88);
+            this.dgvArticles.Location = new System.Drawing.Point(24, 169);
+            this.dgvArticles.Margin = new System.Windows.Forms.Padding(6);
             this.dgvArticles.MultiSelect = false;
             this.dgvArticles.Name = "dgvArticles";
             this.dgvArticles.ReadOnly = true;
             this.dgvArticles.RowHeadersVisible = false;
             this.dgvArticles.RowHeadersWidth = 82;
             this.dgvArticles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvArticles.Size = new System.Drawing.Size(473, 229);
+            this.dgvArticles.Size = new System.Drawing.Size(808, 354);
             this.dgvArticles.TabIndex = 0;
             this.dgvArticles.SelectionChanged += new System.EventHandler(this.dgvArticles_SelectionChanged);
             // 
             // pboxImg
             // 
-            this.pboxImg.Location = new System.Drawing.Point(520, 88);
-            this.pboxImg.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pboxImg.Location = new System.Drawing.Point(921, 169);
+            this.pboxImg.Margin = new System.Windows.Forms.Padding(4);
             this.pboxImg.Name = "pboxImg";
-            this.pboxImg.Size = new System.Drawing.Size(206, 229);
+            this.pboxImg.Size = new System.Drawing.Size(378, 354);
             this.pboxImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pboxImg.TabIndex = 1;
             this.pboxImg.TabStop = false;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(12, 323);
+            this.btnAdd.Location = new System.Drawing.Point(24, 587);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(6);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(150, 44);
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "New...";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -101,9 +103,10 @@
             // 
             // btnModify
             // 
-            this.btnModify.Location = new System.Drawing.Point(103, 323);
+            this.btnModify.Location = new System.Drawing.Point(206, 587);
+            this.btnModify.Margin = new System.Windows.Forms.Padding(6);
             this.btnModify.Name = "btnModify";
-            this.btnModify.Size = new System.Drawing.Size(75, 23);
+            this.btnModify.Size = new System.Drawing.Size(150, 44);
             this.btnModify.TabIndex = 3;
             this.btnModify.Text = "Modify";
             this.btnModify.UseVisualStyleBackColor = true;
@@ -111,9 +114,10 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(194, 323);
+            this.btnDelete.Location = new System.Drawing.Point(388, 587);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(6);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(150, 44);
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -124,9 +128,10 @@
             this.lblField.AutoSize = true;
             this.lblField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblField.ForeColor = System.Drawing.Color.Black;
-            this.lblField.Location = new System.Drawing.Point(28, 30);
+            this.lblField.Location = new System.Drawing.Point(56, 58);
+            this.lblField.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblField.Name = "lblField";
-            this.lblField.Size = new System.Drawing.Size(34, 15);
+            this.lblField.Size = new System.Drawing.Size(68, 29);
             this.lblField.TabIndex = 33;
             this.lblField.Text = "Field";
             // 
@@ -135,10 +140,10 @@
             this.btnFiltrar.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.btnFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFiltrar.ForeColor = System.Drawing.Color.Black;
-            this.btnFiltrar.Location = new System.Drawing.Point(592, 28);
-            this.btnFiltrar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnFiltrar.Location = new System.Drawing.Point(1184, 54);
+            this.btnFiltrar.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(47, 27);
+            this.btnFiltrar.Size = new System.Drawing.Size(94, 52);
             this.btnFiltrar.TabIndex = 31;
             this.btnFiltrar.Text = "Find";
             this.btnFiltrar.UseVisualStyleBackColor = false;
@@ -148,10 +153,10 @@
             // 
             this.cboxField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxField.FormattingEnabled = true;
-            this.cboxField.Location = new System.Drawing.Point(80, 30);
-            this.cboxField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cboxField.Location = new System.Drawing.Point(160, 58);
+            this.cboxField.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.cboxField.Name = "cboxField";
-            this.cboxField.Size = new System.Drawing.Size(89, 21);
+            this.cboxField.Size = new System.Drawing.Size(174, 33);
             this.cboxField.TabIndex = 32;
             this.cboxField.SelectedIndexChanged += new System.EventHandler(this.cboxField_SelectedIndexChanged);
             // 
@@ -159,10 +164,10 @@
             // 
             this.cboxMatch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxMatch.FormattingEnabled = true;
-            this.cboxMatch.Location = new System.Drawing.Point(232, 32);
-            this.cboxMatch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cboxMatch.Location = new System.Drawing.Point(464, 62);
+            this.cboxMatch.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.cboxMatch.Name = "cboxMatch";
-            this.cboxMatch.Size = new System.Drawing.Size(100, 21);
+            this.cboxMatch.Size = new System.Drawing.Size(196, 33);
             this.cboxMatch.TabIndex = 34;
             // 
             // lblMatch
@@ -170,9 +175,10 @@
             this.lblMatch.AutoSize = true;
             this.lblMatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMatch.ForeColor = System.Drawing.Color.Black;
-            this.lblMatch.Location = new System.Drawing.Point(185, 33);
+            this.lblMatch.Location = new System.Drawing.Point(370, 63);
+            this.lblMatch.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblMatch.Name = "lblMatch";
-            this.lblMatch.Size = new System.Drawing.Size(41, 15);
+            this.lblMatch.Size = new System.Drawing.Size(77, 29);
             this.lblMatch.TabIndex = 35;
             this.lblMatch.Text = "Match";
             // 
@@ -181,18 +187,19 @@
             this.lblAdvFilter.AutoSize = true;
             this.lblAdvFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAdvFilter.ForeColor = System.Drawing.Color.Black;
-            this.lblAdvFilter.Location = new System.Drawing.Point(346, 33);
+            this.lblAdvFilter.Location = new System.Drawing.Point(692, 63);
+            this.lblAdvFilter.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblAdvFilter.Name = "lblAdvFilter";
-            this.lblAdvFilter.Size = new System.Drawing.Size(34, 15);
+            this.lblAdvFilter.Size = new System.Drawing.Size(68, 29);
             this.lblAdvFilter.TabIndex = 36;
             this.lblAdvFilter.Text = "Filter";
             // 
             // txtAdvFilter
             // 
-            this.txtAdvFilter.Location = new System.Drawing.Point(382, 33);
-            this.txtAdvFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtAdvFilter.Location = new System.Drawing.Point(764, 63);
+            this.txtAdvFilter.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.txtAdvFilter.Name = "txtAdvFilter";
-            this.txtAdvFilter.Size = new System.Drawing.Size(200, 20);
+            this.txtAdvFilter.Size = new System.Drawing.Size(396, 31);
             this.txtAdvFilter.TabIndex = 37;
             this.txtAdvFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAdvFilter_KeyPress);
             // 
@@ -201,10 +208,10 @@
             this.txtFilter.BackColor = System.Drawing.Color.White;
             this.txtFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFilter.ForeColor = System.Drawing.Color.Black;
-            this.txtFilter.Location = new System.Drawing.Point(172, 61);
-            this.txtFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtFilter.Location = new System.Drawing.Point(344, 117);
+            this.txtFilter.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(274, 23);
+            this.txtFilter.Size = new System.Drawing.Size(544, 38);
             this.txtFilter.TabIndex = 38;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             // 
@@ -212,17 +219,19 @@
             // 
             this.lblFastFilter.AutoSize = true;
             this.lblFastFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFastFilter.Location = new System.Drawing.Point(87, 61);
+            this.lblFastFilter.Location = new System.Drawing.Point(174, 117);
+            this.lblFastFilter.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblFastFilter.Name = "lblFastFilter";
-            this.lblFastFilter.Size = new System.Drawing.Size(67, 15);
+            this.lblFastFilter.Size = new System.Drawing.Size(122, 29);
             this.lblFastFilter.TabIndex = 39;
             this.lblFastFilter.Text = "Fast filter";
             // 
             // btnDetails
             // 
-            this.btnDetails.Location = new System.Drawing.Point(292, 323);
+            this.btnDetails.Location = new System.Drawing.Point(584, 587);
+            this.btnDetails.Margin = new System.Windows.Forms.Padding(6);
             this.btnDetails.Name = "btnDetails";
-            this.btnDetails.Size = new System.Drawing.Size(75, 23);
+            this.btnDetails.Size = new System.Drawing.Size(150, 44);
             this.btnDetails.TabIndex = 40;
             this.btnDetails.Text = "Details";
             this.btnDetails.UseVisualStyleBackColor = true;
@@ -230,9 +239,9 @@
             // 
             // FormArticles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(739, 450);
+            this.ClientSize = new System.Drawing.Size(1478, 865);
             this.Controls.Add(this.btnDetails);
             this.Controls.Add(this.lblFastFilter);
             this.Controls.Add(this.txtFilter);
@@ -249,6 +258,7 @@
             this.Controls.Add(this.pboxImg);
             this.Controls.Add(this.dgvArticles);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "FormArticles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Articles Administrator";

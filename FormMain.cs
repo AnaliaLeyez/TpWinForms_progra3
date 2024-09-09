@@ -8,7 +8,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
+using Model;
 
 namespace TpWinForms
 {
@@ -66,7 +68,6 @@ namespace TpWinForms
                 pboxImg.Load("https://faculty.eng.ufl.edu/elliot-douglas/wp-content/uploads/sites/70/2015/11/img-placeholder.png");
             }
         }
-
         private void dgvArticles_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvArticles.CurrentRow != null)
@@ -79,16 +80,12 @@ namespace TpWinForms
                     LoadImg("");
             }
         }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             FormArticle form = new FormArticle();
             form.ShowDialog();
             LoadGrid();
         }
-
-
-
         private void btnModify_Click(object sender, EventArgs e)
         {
              
@@ -123,7 +120,6 @@ namespace TpWinForms
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
@@ -172,6 +168,9 @@ namespace TpWinForms
             BusinessArticle business = new BusinessArticle();
             try
             {
+                if (!Model.Validation.FilterValidation(cboxField, cboxMatch, txtAdvFilter))
+                    return;
+
                 string field = cboxField.SelectedItem.ToString();
                 if (field == "")
                 {

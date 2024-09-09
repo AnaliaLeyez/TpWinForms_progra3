@@ -24,6 +24,8 @@ namespace TpWinForms
             Text = "Add";
             lblTitle.Text = "Add new item";
             btnOk.Text = "Add";
+            btnCancel.Enabled = true;
+            btnCancel.Visible = true;
         }
 
         public FormArticle(Article art, string mode)
@@ -43,13 +45,16 @@ namespace TpWinForms
                     Text = "Modify";
                     lblTitle.Text = "Modify an existing item";
                     btnOk.Text = "Modify";
+                    btnCancel.Enabled = true;
+                    btnCancel.Visible = true;
                     break;
                 case "Details":
                     Text = "Details";
                     lblTitle.Text = "View item details";
                     btnOk.Text = "Close";
-                    // Puedes deshabilitar controles o ajustar otros elementos aquí si es necesario
-                    btnOk.Visible = false; // Ejemplo para ocultar el botón en modo "Details"
+                    btnCancel.Enabled = false;
+                    btnCancel.Visible = false;
+                   // btnOk.Visible = false;
                     break;
                 default:
                     throw new ArgumentException("Unknown mode", nameof(mode));
@@ -62,22 +67,31 @@ namespace TpWinForms
         {
             BusinessCategory businessCategory = new BusinessCategory();
             BusinessBrand businessBrand = new BusinessBrand();
-            btnOk.Enabled = false;
-
-            if (art != null)
-            {
-                businessImage = new BusinessImage();
-                art.UrlImages = businessImage.list(art.Id);
-            }
-
             try
             {
-                cmbBrand.DataSource = businessBrand.list();
+                if (art != null)
+                {
+                    businessImage = new BusinessImage();
+                    art.UrlImages = businessImage.list(art.Id);
+                }
+                if (Text != "Details") //esto es para ver si puede desplegar opciones o debe mostrar una sola (en caso de querer ver los detalles)
+                {
+                    cmbBrand.DataSource = businessBrand.list();
+                    cmbCategory.DataSource = businessCategory.list();                    
+                }
+                else
+                {
+                    List<Brand> singleBrand = new List<Brand> { art.Brand };
+                    cmbBrand.DataSource = singleBrand;
+                    List<Category> singleCategory = new List<Category> { art.Category };
+                    cmbCategory.DataSource = singleCategory;                    
+                }
+
                 cmbBrand.ValueMember = "Id";
-                cmbBrand.DisplayMember= "Description";
-                cmbCategory.DataSource = businessCategory.list();
+                cmbBrand.DisplayMember = "Description";
                 cmbCategory.ValueMember = "Id";
                 cmbCategory.DisplayMember = "Description";
+
 
                 if (art != null)
                 {
@@ -136,7 +150,6 @@ namespace TpWinForms
                 art = new Article();
                 art.UrlImages = new List<Model.Image>();
             }
-
 
             BusinessArticle business = new BusinessArticle();
             //BusinessImage businessImage = new BusinessImage();

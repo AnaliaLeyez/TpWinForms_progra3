@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Model
@@ -18,7 +19,21 @@ namespace Model
                 return;
             }
         }
-
+        public static bool onlyNumbers(string txt)
+        {
+            int comma = 0;
+            foreach (char ch in txt)
+            {
+                if (!(char.IsNumber(ch)))
+                    if (ch == '.' || ch == ',')
+                        comma++;
+                    else
+                        return false;
+                if (comma > 1)
+                    return false;
+            }
+            return true;
+        }
         public static void onlyLetters(KeyPressEventArgs e)
         {
             if ((e.KeyChar >= 32 && e.KeyChar <= 64) || (e.KeyChar >= 123 && e.KeyChar <= 255))
@@ -27,6 +42,29 @@ namespace Model
                 e.Handled = true;
                 return;
             }
+        }
+        public static bool FilterValidation(ComboBox cboxField, ComboBox cboxMatch, TextBox txtAdvFilter)
+        {
+            if (cboxField.SelectedIndex == -1 || cboxMatch.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select Field and Match to filter");
+                return false;
+            }
+            if (cboxField.SelectedItem.ToString() == "Price")
+            {
+                Validation validacion = new Validation();
+                if (string.IsNullOrEmpty(txtAdvFilter.Text))
+                {
+                    MessageBox.Show("Please select a price to filter");
+                    return false;
+                }
+                else if (!(Validation.onlyNumbers(txtAdvFilter.Text)))
+                {
+                    MessageBox.Show("Only numbers to filter by price");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
