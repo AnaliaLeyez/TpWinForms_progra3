@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -123,7 +124,6 @@ namespace Business
             {
                 data.closeConnection();
             }
-
         }
 
         public void deleteArticle(int id)
@@ -250,6 +250,35 @@ namespace Business
             {
                 data.closeConnection();
             }
+        }
+
+        public int getIdMax()
+        {
+            try
+            {
+                this.data.setQuery("select MAX(Id) AS Id from ARTICULOS");
+                this.data.executeRead();
+
+                //int idMax = (int)data.Reader["Id"];
+                //return idMax;
+
+                if (this.data.Reader.Read())
+                {
+                    // Verifica si el valor es NULL antes de convertirlo
+                    int idMax = this.data.Reader.IsDBNull(0) ? 0 : (int)this.data.Reader["Id"];
+                    return idMax;
+                }
+                    return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                this.data.closeConnection();
+            }
+
         }
     }
 }

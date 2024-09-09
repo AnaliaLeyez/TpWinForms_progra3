@@ -24,6 +24,7 @@ namespace TpWinForms
             Text = "Add";
             lblTitle.Text = "Add new item";
             btnOk.Text = "Add";
+            btnOk.Enabled = false;
             btnCancel.Enabled = true;
             btnCancel.Visible = true;
         }
@@ -145,21 +146,22 @@ namespace TpWinForms
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            BusinessArticle business = new BusinessArticle();
+            //BusinessImage businessImage = new BusinessImage();
+
             if (art == null)
             {
                 art = new Article();
                 art.UrlImages = new List<Model.Image>();
+                art.Id = business.getIdMax()+1;
             }
-
-            BusinessArticle business = new BusinessArticle();
-            //BusinessImage businessImage = new BusinessImage();
 
             try
             {
                 art.Code = txtCode.Text;
                 art.Name = txtName.Text;
                 art.Description = txtDescription.Text;
-             //   art.UrlImage.Add(lBoxUrl.Items[0].ToString());  //CORREGIR
+             // art.UrlImage.Add(lBoxUrl.Items[0].ToString());  //CORREGIR
                 art.Price = decimal.Parse(txtPrice.Text);
                 art.Brand = (Brand)cmbBrand.SelectedItem;
                 art.Category = (Category)cmbCategory.SelectedItem;
@@ -173,7 +175,7 @@ namespace TpWinForms
                     art.UrlImages.Add(img);
                 }
 
-                if (art.Id != 0)
+                if (Text=="Modify")
                 {
                     business.modifyArticle(art);
                     MessageBox.Show("Successfully modified");
