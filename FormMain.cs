@@ -88,7 +88,6 @@ namespace TpWinForms
         }
         private void btnModify_Click(object sender, EventArgs e)
         {
-             
             Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
             FormArticle form = new FormArticle(art, "Modify");
             form.ShowDialog();
@@ -116,7 +115,6 @@ namespace TpWinForms
                     select = (Article)dgvArticles.CurrentRow.DataBoundItem;
                     business.deleteArticle(select.Id);
                     LoadGrid();
-
                 }
             }
             catch (Exception ex)
@@ -138,7 +136,6 @@ namespace TpWinForms
             dgvArticles.DataSource = null;
             dgvArticles.DataSource = filteredList;
             hideColumns();
-
         }
 
         private void cboxField_SelectedIndexChanged(object sender, EventArgs e)
@@ -188,12 +185,10 @@ namespace TpWinForms
                 MessageBox.Show(ex.ToString());
             }
         }
-
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
             advFilter();
         }
-
         private void txtAdvFilter_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -210,7 +205,5 @@ namespace TpWinForms
             dgvArticles.Columns["Description"].Visible = false;
             dgvArticles.Columns["Id"].Visible = false;
         }
-
-        
     }
 }

@@ -66,18 +66,18 @@ namespace TpWinForms
                     businessImage = new BusinessImage();
                     art.UrlImages = businessImage.list(art.Id);
                 }
-                if (Text != "Details") //esto es para ver si puede desplegar opciones o debe mostrar una sola (en caso de querer ver los detalles)
-                {
+                //if (Text != "Details") //esto es para ver si puede desplegar opciones o debe mostrar una sola (en caso de querer ver los detalles)
+                //{
                     cmbBrand.DataSource = businessBrand.list();
                     cmbCategory.DataSource = businessCategory.list();
-                }
-                else
-                {
-                    List<Brand> singleBrand = new List<Brand> { art.Brand };
-                    cmbBrand.DataSource = singleBrand;
-                    List<Category> singleCategory = new List<Category> { art.Category };
-                    cmbCategory.DataSource = singleCategory;
-                }
+                //}
+                //else
+                //{
+                //    List<Brand> singleBrand = new List<Brand> { art.Brand };
+                //    cmbBrand.DataSource = singleBrand;
+                //    List<Category> singleCategory = new List<Category> { art.Category };
+                //    cmbCategory.DataSource = singleCategory;
+                //}
 
                 cmbBrand.ValueMember = "Id";
                 cmbBrand.DisplayMember = "Description";
@@ -144,7 +144,6 @@ namespace TpWinForms
             {
                 art = new Article();
                 art.UrlImages = new List<Model.Image>();
-                //art.Id = business.getIdMax()+1;
             }
             try
             {
@@ -160,7 +159,7 @@ namespace TpWinForms
                     art.UrlImages.Add(item);
                 }
 
-                if (Text == "Modify")
+                if (art.Id!=0)
                 {
                     business.modifyArticle(art);
                     MessageBox.Show("Successfully modified");
