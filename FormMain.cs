@@ -98,7 +98,8 @@ namespace TpWinForms
         private void btnDetails_Click(object sender, EventArgs e)
         {
             Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            FormArticle form = new FormArticle(art, "Details");
+            //FormArticle form = new FormArticle(art, "Details");
+            FormDetails form = new FormDetails(art);
             form.ShowDialog();
             LoadGrid();
         }
