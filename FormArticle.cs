@@ -250,5 +250,20 @@ namespace TpWinForms
             validateField();
             Model.Validation.onlyLetters((KeyPressEventArgs)e);
         }
+
+        private void txtUrlImage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                string urlImage = txtUrlImage.Text;  //esto esta repetido en btnAgregarImgClick, habria que dejarlo en otra funcion para no repetir
+
+                if (!string.IsNullOrEmpty(urlImage))
+                {
+                    lBoxUrl.Items.Add(urlImage);
+                    txtUrlImage.Clear();
+                }
+                e.Handled = true; // evita que se genere el sonido de la tecla Enter
+            }
+        }
     }
 }
