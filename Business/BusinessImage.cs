@@ -57,16 +57,18 @@ namespace Business
             {
                 foreach(var img in images)
                 {
-                    data.setQuery("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@IdArticulo, @ImagenUrl)");
-                    data.setParameter("@IdArticulo", img.IdArticle);
-                    data.setParameter("@ImagenUrl", img.UrlImage);
-                    data.executeAction();
+                    if(img.Id == 0)
+                    {
+                        data.setQuery("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@IdArticulo, @ImagenUrl)");
+                        data.setParameter("@IdArticulo", img.IdArticle);
+                        data.setParameter("@ImagenUrl", img.UrlImage);
+                        data.executeAction();
 
-                    data.clearParams();
-                    data.closeConnection();
-                    
+                        data.clearParams();
+                        data.closeConnection();
+                    }
+              
                 }
-
 
             }
             catch (Exception ex)

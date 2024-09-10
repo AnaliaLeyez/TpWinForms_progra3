@@ -2,13 +2,6 @@
 using Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace TpWinForms
@@ -55,14 +48,12 @@ namespace TpWinForms
                     btnOk.Text = "Close";
                     btnCancel.Enabled = false;
                     btnCancel.Visible = false;
-                   // btnOk.Visible = false;
+                    // btnOk.Visible = false;
                     break;
                 default:
                     throw new ArgumentException("Unknown mode", nameof(mode));
             }
         }
-
-
 
         private void FormArticle_Load(object sender, EventArgs e)
         {
@@ -78,14 +69,14 @@ namespace TpWinForms
                 if (Text != "Details") //esto es para ver si puede desplegar opciones o debe mostrar una sola (en caso de querer ver los detalles)
                 {
                     cmbBrand.DataSource = businessBrand.list();
-                    cmbCategory.DataSource = businessCategory.list();                    
+                    cmbCategory.DataSource = businessCategory.list();
                 }
                 else
                 {
                     List<Brand> singleBrand = new List<Brand> { art.Brand };
                     cmbBrand.DataSource = singleBrand;
                     List<Category> singleCategory = new List<Category> { art.Category };
-                    cmbCategory.DataSource = singleCategory;                    
+                    cmbCategory.DataSource = singleCategory;
                 }
 
                 cmbBrand.ValueMember = "Id";
@@ -103,9 +94,9 @@ namespace TpWinForms
                     cmbCategory.SelectedValue = art.Category.Id;
                     txtDescription.Text = art.Description;
 
-                    foreach(var item in art.UrlImages)
+                    foreach (var item in art.UrlImages)
                     {
-                      lBoxUrl.Items.Add(item);
+                        lBoxUrl.Items.Add(item);
                     }
 
                     loadImage(art.UrlImages[0].UrlImage);
@@ -113,7 +104,6 @@ namespace TpWinForms
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
@@ -126,20 +116,22 @@ namespace TpWinForms
         private void btnAddImage_Click(object sender, EventArgs e)
         {
             string urlImage = txtUrlImage.Text;
-            
-            if(!string.IsNullOrEmpty(urlImage))
+
+            if (!string.IsNullOrEmpty(urlImage))
             {
-                lBoxUrl.Items.Add(urlImage);
+                Model.Image img = new Model.Image();
+                img.UrlImage = urlImage;
+                lBoxUrl.Items.Add(img);
                 txtUrlImage.Clear();
             }
         }
 
         private void lBoxUrl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(lBoxUrl.SelectedItem != null)
+            if (lBoxUrl.SelectedItem != null)
             {
                 string imageUrl = lBoxUrl.SelectedItem.ToString();
-                ptbImage.Load(imageUrl);
+                loadImage(imageUrl);
                 btnDeleteImg.Enabled = true;
             }
         }
@@ -147,35 +139,28 @@ namespace TpWinForms
         private void btnOk_Click(object sender, EventArgs e)
         {
             BusinessArticle business = new BusinessArticle();
-            //BusinessImage businessImage = new BusinessImage();
 
             if (art == null)
             {
                 art = new Article();
                 art.UrlImages = new List<Model.Image>();
-                art.Id = business.getIdMax()+1;
+                //art.Id = business.getIdMax()+1;
             }
-
             try
             {
                 art.Code = txtCode.Text;
                 art.Name = txtName.Text;
                 art.Description = txtDescription.Text;
-             // art.UrlImage.Add(lBoxUrl.Items[0].ToString());  //CORREGIR
                 art.Price = decimal.Parse(txtPrice.Text);
                 art.Brand = (Brand)cmbBrand.SelectedItem;
                 art.Category = (Category)cmbCategory.SelectedItem;
-              
-                foreach(var item in lBoxUrl.Items)
-                {
-                    Model.Image img = new Model.Image();
-                    img.UrlImage = item.ToString();
-                    img.IdArticle = art.Id;
 
-                    art.UrlImages.Add(img);
+                foreach (Model.Image item in lBoxUrl.Items)
+                {
+                    art.UrlImages.Add(item);
                 }
 
-                if (Text=="Modify")
+                if (Text == "Modify")
                 {
                     business.modifyArticle(art);
                     MessageBox.Show("Successfully modified");
@@ -207,23 +192,32 @@ namespace TpWinForms
 
         private void btnDeleteImg_Click(object sender, EventArgs e)
         {
-            if(lBoxUrl.SelectedItem != null && art == null)
+            Model.Image img = (Model.Image)lBoxUrl.SelectedItem;
+
+            //Delete para nuevos registros
+            if (lBoxUrl.SelectedItem != null && img.Id == 0)
             {
-                lBoxUrl.Items.Remove(lBoxUrl.SelectedItem);
-                ptbImage.Image = null;
-                btnDeleteImg.Enabled = false;
+                DeleteImageBox();
+                return;
             }
 
-            if(art != null)
+            if (art != null && img.Id > 0)
             {
-                DialogResult result = MessageBox.Show("Do you want to delete the image from the database, This action cannot be undone ?", "Delete image", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(result == DialogResult.Yes)
+                DialogResult result = MessageBox.Show("Are you sure to delete the image from the database? This action cannot be undone", "Delete image", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    Model.Image img = (Model.Image)lBoxUrl.SelectedItem;
+                    //Model.Image img = (Model.Image)lBoxUrl.SelectedItem;
                     businessImage.DeleteImage(img.Id);
-                    //Hay que ver como recargamos el form para que se actualice.
+                    DeleteImageBox();
                 }
             }
+        }
+
+        private void DeleteImageBox()
+        {
+            lBoxUrl.Items.Remove(lBoxUrl.SelectedItem);
+            ptbImage.Image = null;
+            btnDeleteImg.Enabled = false;
         }
 
         private void validateField()

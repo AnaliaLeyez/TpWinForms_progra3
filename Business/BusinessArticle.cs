@@ -84,6 +84,12 @@ namespace Business
                 //data.executeAction();
 
                 int id = data.getIdEcalar();
+
+                foreach(var img in article.UrlImages)
+                {
+                    img.IdArticle = id;
+                }
+
                 data.closeConnection();
 
                 businessImage.AddImage(article.UrlImages);
@@ -101,6 +107,7 @@ namespace Business
 
         public void modifyArticle(Article article)
         {
+            BusinessImage businessImage = new BusinessImage();
             try
             {
                 data.setQuery("update ARTICULOS set Codigo=@Code, Nombre=@Name, Descripcion=@Description, IdMarca=@idBrand, IdCategoria=@idCategory, Precio=@Price where Id=@Id");
@@ -114,6 +121,9 @@ namespace Business
                 data.setParameter("@Id", article.Id);
 
                 data.executeAction();
+                data.closeConnection();
+
+                businessImage.AddImage(article.UrlImages);
 
             }
             catch (Exception ex)
