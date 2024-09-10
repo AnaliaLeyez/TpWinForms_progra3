@@ -73,7 +73,6 @@ namespace Business
             }
             catch (Exception ex)
             {
-
                 throw ex ;
             }
             finally
