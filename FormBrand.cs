@@ -54,7 +54,7 @@ namespace TpWinForms
 
                 brn.Description = (string)txtNewBrand.Text;
                 business.add(brn);
-                MessageBox.Show("Category added successfully");
+                MessageBox.Show("Brand added successfully");
                 load();
                 txtNewBrand.Text = "";
             }
