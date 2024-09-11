@@ -49,10 +49,8 @@ namespace Business
                         new Image { Id = idImage, IdArticle = aux.Id, UrlImage = urlImage }
                     };
 
-
                     articleList.Add(aux);
                 }
-
                 return articleList;
             }
             catch (Exception ex)
@@ -72,14 +70,12 @@ namespace Business
             try
             {
                 data.setQuery("insert into ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) OUTPUT INSERTED.Id values(@Code, @Name, @Description, @idBrand , @idCategory, @Price)");
-               // data.setQuery("insert into IMAGENES(Id, IdArticulo, ImagenUrl) values(1, @Code, @urlImage)");
                 
                 data.setParameter("@Code", article.Code);
                 data.setParameter("@Name", article.Name);
                 data.setParameter("@Description", article.Description);
                 data.setParameter("@idBrand", article.Brand.Id);
                 data.setParameter("@idCategory", article.Category.Id);
-               // data.setParameter("@urlImage" , article.UrlImage);
                 data.setParameter("@Price", article.Price);
                 //data.executeAction();
 
@@ -116,7 +112,6 @@ namespace Business
                 data.setParameter("@Description", article.Description);
                 data.setParameter("@idBrand", article.Brand.Id);
                 data.setParameter("@idCategory", article.Category.Id);
-                //data.setParameter("@urlImage" , article.UrlImage);
                 data.setParameter("@Price", article.Price);
                 data.setParameter("@Id", article.Id);
 
@@ -124,7 +119,6 @@ namespace Business
                 data.closeConnection();
 
                 businessImage.AddImage(article.UrlImages);
-
             }
             catch (Exception ex)
             {
@@ -146,7 +140,6 @@ namespace Business
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
@@ -159,8 +152,7 @@ namespace Business
             List<Article> filteredArtList = new List<Article>();
             try
             {
-                //string query = "Select A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion Marca, A.IdCategoria, C.Descripcion Categoria, A.Precio, I.ImagenUrl, I.Id From ARTICULOS A, CATEGORIAS C, MARCAS M, IMAGENES I Where M.Id = A.IdMarca And C.Id = A.IdCategoria And A.Precio>0 And A.Id = I.IdArticulo AND ";
-                string query = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, I.ImagenUrl, I.Id AS IdImagen, M.Descripcion AS Brand, C.Descripcion AS Category" +
+               string query = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, I.ImagenUrl, I.Id AS IdImagen, M.Descripcion AS Brand, C.Descripcion AS Category" +
                     " FROM ARTICULOS A JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria LEFT JOIN (SELECT I.Id, I.ImagenUrl, I.IdArticulo" +
                     " FROM IMAGENES I WHERE I.Id IN (SELECT MIN(Id) FROM IMAGENES GROUP BY IdArticulo)) I ON I.IdArticulo = A.Id WHERE ";
                 switch (field)
@@ -260,35 +252,6 @@ namespace Business
             {
                 data.closeConnection();
             }
-        }
-
-        public int getIdMax()
-        {
-            try
-            {
-                this.data.setQuery("select MAX(Id) AS Id from ARTICULOS");
-                this.data.executeRead();
-
-                //int idMax = (int)data.Reader["Id"];
-                //return idMax;
-
-                if (this.data.Reader.Read())
-                {
-                    // Verifica si el valor es NULL antes de convertirlo
-                    int idMax = this.data.Reader.IsDBNull(0) ? 0 : (int)this.data.Reader["Id"];
-                    return idMax;
-                }
-                    return 0;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                this.data.closeConnection();
-            }
-
         }
     }
 }

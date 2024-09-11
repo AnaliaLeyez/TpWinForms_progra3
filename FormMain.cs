@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 
@@ -21,11 +22,14 @@ namespace TpWinForms
         {
             InitializeComponent();
         }
-
         private void FormArticle_Load(object sender, EventArgs e)
         {
             LoadCboxField();
             LoadGrid();
+        }
+        private void FiltroTimer_Tick(object sender, EventArgs e)
+        {
+            validateSelectCell();
         }
         private void LoadGrid()
         {
@@ -35,14 +39,10 @@ namespace TpWinForms
                 articlelist = business.list();
                 dgvArticles.DataSource = articlelist;
                 hideColumns();
-                //CHEQUEAR:
                 if (dgvArticles.CurrentRow != null)
                 {
                     Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-                    if (selected.UrlImages.Count > 0)
-                        LoadImg(selected.UrlImages[0].UrlImage);
-                    else
-                        LoadImg("");
+                    showImage(selected);
                 }
             }
             catch (Exception ex)
@@ -70,15 +70,7 @@ namespace TpWinForms
         }
         private void dgvArticles_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvArticles.CurrentRow != null)
-            {
-                Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
-                //CHEQUEAR:
-                if (!string.IsNullOrEmpty(selected.UrlImages[0].ToString()))
-                    LoadImg(selected.UrlImages[0].UrlImage);
-                else
-                    LoadImg("");
-            }
+                validateSelectCell();
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -97,7 +89,6 @@ namespace TpWinForms
         private void btnDetails_Click(object sender, EventArgs e)
         {
             Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            //FormArticle form = new FormArticle(art, "Details");
             FormDetails form = new FormDetails(art);
             form.ShowDialog();
             LoadGrid();
@@ -194,30 +185,52 @@ namespace TpWinForms
             if (e.KeyChar == (char)Keys.Enter)
             {
                advFilter();
-                e.Handled = true; // evita que se genere el sonido de la tecla Enter
+                e.Handled = true;
             }
         }
 
         private void hideColumns()
         {
-            //dgvArticles.Columns["UrlImages"].Visible = false;
             dgvArticles.Columns["Code"].Visible = false;
             dgvArticles.Columns["Description"].Visible = false;
             dgvArticles.Columns["Id"].Visible = false;
         }
-
-      
-
-        private void tsmCategories_Click(object sender, EventArgs e)
+        private void categToolStrip_Click(object sender, EventArgs e)
         {
             FormCategory form = new FormCategory();
             form.ShowDialog();
         }
 
-        private void tsmBrands_Click(object sender, EventArgs e)
+        private void brandsToolStrip_Click(object sender, EventArgs e)
         {
             FormBrand form = new FormBrand();
             form.ShowDialog();
         }
+        private void showImage(Article selected) 
+        {
+            if (!string.IsNullOrEmpty(selected.UrlImages[0].ToString()))
+                LoadImg(selected.UrlImages[0].UrlImage);
+            else
+                LoadImg("");
+        }
+        private void validateSelectCell()
+        {
+            if (dgvArticles.CurrentRow != null)
+            {
+                Article selected = (Article)dgvArticles.CurrentRow.DataBoundItem;
+                showImage(selected);
+                btnDelete.Enabled = true;
+                btnModify.Enabled = true;
+                btnDetails.Enabled = true;
+            }
+            else
+            {
+                LoadImg("");
+                btnDelete.Enabled = false;
+                btnModify.Enabled = false;
+                btnDetails.Enabled = false;
+            }
+        }
+        
     }
 }

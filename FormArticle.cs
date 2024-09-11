@@ -21,7 +21,6 @@ namespace TpWinForms
             btnCancel.Enabled = true;
             btnCancel.Visible = true;
         }
-
         public FormArticle(Article art, string mode)
         {
             InitializeComponent();
@@ -29,9 +28,7 @@ namespace TpWinForms
             this.mode = mode;
             SetMode(mode);
         }
-
-
-        public void SetMode(string mode)
+        public void SetMode(string mode) //hay que borrar esto
         {
             switch (mode)
             {
@@ -41,14 +38,6 @@ namespace TpWinForms
                     btnOk.Text = "Modify";
                     btnCancel.Enabled = true;
                     btnCancel.Visible = true;
-                    break;
-                case "Details":
-                    Text = "Details";
-                    lblTitle.Text = "View item details";
-                    btnOk.Text = "Close";
-                    btnCancel.Enabled = false;
-                    btnCancel.Visible = false;
-                    // btnOk.Visible = false;
                     break;
                 default:
                     throw new ArgumentException("Unknown mode", nameof(mode));
@@ -66,24 +55,12 @@ namespace TpWinForms
                     businessImage = new BusinessImage();
                     art.UrlImages = businessImage.list(art.Id);
                 }
-                //if (Text != "Details") //esto es para ver si puede desplegar opciones o debe mostrar una sola (en caso de querer ver los detalles)
-                //{
-                    cmbBrand.DataSource = businessBrand.list();
-                    cmbCategory.DataSource = businessCategory.list();
-                //}
-                //else
-                //{
-                //    List<Brand> singleBrand = new List<Brand> { art.Brand };
-                //    cmbBrand.DataSource = singleBrand;
-                //    List<Category> singleCategory = new List<Category> { art.Category };
-                //    cmbCategory.DataSource = singleCategory;
-                //}
-
+                cmbBrand.DataSource = businessBrand.list();
+                cmbCategory.DataSource = businessCategory.list();
                 cmbBrand.ValueMember = "Id";
                 cmbBrand.DisplayMember = "Description";
                 cmbCategory.ValueMember = "Id";
                 cmbCategory.DisplayMember = "Description";
-
 
                 if (art != null)
                 {
@@ -211,7 +188,6 @@ namespace TpWinForms
                 }
             }
         }
-
         private void DeleteImageBox()
         {
             lBoxUrl.Items.Remove(lBoxUrl.SelectedItem);
@@ -231,19 +207,16 @@ namespace TpWinForms
         {
             validateField();
         }
-
         private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
             validateField();
             Model.Validation.onlyNumbers((KeyPressEventArgs)e);
         }
-
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)
         {
             validateField();
             Model.Validation.onlyLetters((KeyPressEventArgs)e);
         }
-
         private void txtUrlImage_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -255,8 +228,9 @@ namespace TpWinForms
                     lBoxUrl.Items.Add(urlImage);
                     txtUrlImage.Clear();
                 }
-                e.Handled = true; // evita que se genere el sonido de la tecla Enter
+                e.Handled = true;
             }
         }
+        
     }
 }
