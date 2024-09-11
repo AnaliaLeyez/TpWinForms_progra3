@@ -205,5 +205,19 @@ namespace TpWinForms
             dgvArticles.Columns["Description"].Visible = false;
             dgvArticles.Columns["Id"].Visible = false;
         }
+
+      
+
+        private void tsmCategories_Click(object sender, EventArgs e)
+        {
+            FormCategory form = new FormCategory();
+            form.ShowDialog();
+        }
+
+        private void tsmBrands_Click(object sender, EventArgs e)
+        {
+            FormBrand form = new FormBrand();
+            form.ShowDialog();
+        }
     }
 }
