@@ -117,6 +117,12 @@ namespace Business
 
                 data.executeAction();
                 data.closeConnection();
+                                
+
+                foreach (var img in article.UrlImages)
+                {
+                    img.IdArticle = article.Id;
+                }
 
                 businessImage.AddImage(article.UrlImages);
             }
