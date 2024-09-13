@@ -29,7 +29,7 @@ namespace TpWinForms
             {
                 listCategory = business.list();
                 dgvCategories.DataSource = listCategory;
-
+                dgvCategories.Columns["Id"].Visible = false;
             }
             catch (Exception ex)
             {

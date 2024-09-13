@@ -50,6 +50,7 @@
             this.cmbBrand = new System.Windows.Forms.ComboBox();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.btnDeleteImg = new System.Windows.Forms.Button();
+            this.lblMandatory = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ptbImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,9 +71,9 @@
             this.lblCode.Location = new System.Drawing.Point(118, 110);
             this.lblCode.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblCode.Name = "lblCode";
-            this.lblCode.Size = new System.Drawing.Size(63, 25);
+            this.lblCode.Size = new System.Drawing.Size(142, 50);
             this.lblCode.TabIndex = 1;
-            this.lblCode.Text = "Code";
+            this.lblCode.Text = "*Code";
             // 
             // lblName
             // 
@@ -80,9 +81,9 @@
             this.lblName.Location = new System.Drawing.Point(110, 173);
             this.lblName.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(68, 25);
+            this.lblName.Size = new System.Drawing.Size(152, 50);
             this.lblName.TabIndex = 2;
-            this.lblName.Text = "Name";
+            this.lblName.Text = "*Name";
             // 
             // lblPrice
             // 
@@ -90,9 +91,9 @@
             this.lblPrice.Location = new System.Drawing.Point(118, 246);
             this.lblPrice.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(61, 25);
+            this.lblPrice.Size = new System.Drawing.Size(138, 50);
             this.lblPrice.TabIndex = 3;
-            this.lblPrice.Text = "Price";
+            this.lblPrice.Text = "*Price";
             // 
             // lblDescription
             // 
@@ -107,34 +108,31 @@
             // txtCode
             // 
             this.txtCode.Location = new System.Drawing.Point(192, 104);
-            this.txtCode.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtCode.Margin = new System.Windows.Forms.Padding(6);
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(388, 31);
             this.txtCode.TabIndex = 5;
-            this.txtCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCode_KeyPress);
             // 
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(192, 167);
-            this.txtName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtName.Margin = new System.Windows.Forms.Padding(6);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(388, 31);
             this.txtName.TabIndex = 6;
-            this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
             // 
             // txtPrice
             // 
             this.txtPrice.Location = new System.Drawing.Point(192, 240);
-            this.txtPrice.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtPrice.Margin = new System.Windows.Forms.Padding(6);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(388, 31);
             this.txtPrice.TabIndex = 7;
-            this.txtPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice_KeyPress);
             // 
             // txtDescription
             // 
             this.txtDescription.Location = new System.Drawing.Point(192, 465);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(6);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(388, 192);
@@ -143,7 +141,7 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(796, 890);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(150, 44);
             this.btnCancel.TabIndex = 9;
@@ -164,7 +162,7 @@
             // txtUrlImage
             // 
             this.txtUrlImage.Location = new System.Drawing.Point(796, 98);
-            this.txtUrlImage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtUrlImage.Margin = new System.Windows.Forms.Padding(6);
             this.txtUrlImage.Name = "txtUrlImage";
             this.txtUrlImage.Size = new System.Drawing.Size(388, 31);
             this.txtUrlImage.TabIndex = 11;
@@ -173,7 +171,7 @@
             // btnAddImage
             // 
             this.btnAddImage.Location = new System.Drawing.Point(1228, 92);
-            this.btnAddImage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnAddImage.Margin = new System.Windows.Forms.Padding(6);
             this.btnAddImage.Name = "btnAddImage";
             this.btnAddImage.Size = new System.Drawing.Size(150, 44);
             this.btnAddImage.TabIndex = 12;
@@ -186,7 +184,7 @@
             this.lBoxUrl.FormattingEnabled = true;
             this.lBoxUrl.ItemHeight = 25;
             this.lBoxUrl.Location = new System.Drawing.Point(796, 167);
-            this.lBoxUrl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.lBoxUrl.Margin = new System.Windows.Forms.Padding(6);
             this.lBoxUrl.Name = "lBoxUrl";
             this.lBoxUrl.Size = new System.Drawing.Size(388, 104);
             this.lBoxUrl.TabIndex = 13;
@@ -195,7 +193,7 @@
             // ptbImage
             // 
             this.ptbImage.Location = new System.Drawing.Point(796, 404);
-            this.ptbImage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ptbImage.Margin = new System.Windows.Forms.Padding(6);
             this.ptbImage.Name = "ptbImage";
             this.ptbImage.Size = new System.Drawing.Size(392, 352);
             this.ptbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -205,7 +203,7 @@
             // btnOk
             // 
             this.btnOk.Location = new System.Drawing.Point(426, 890);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(6);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(202, 44);
             this.btnOk.TabIndex = 15;
@@ -238,7 +236,7 @@
             this.cmbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBrand.FormattingEnabled = true;
             this.cmbBrand.Location = new System.Drawing.Point(192, 310);
-            this.cmbBrand.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cmbBrand.Margin = new System.Windows.Forms.Padding(6);
             this.cmbBrand.Name = "cmbBrand";
             this.cmbBrand.Size = new System.Drawing.Size(388, 33);
             this.cmbBrand.TabIndex = 18;
@@ -248,7 +246,7 @@
             this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategory.FormattingEnabled = true;
             this.cmbCategory.Location = new System.Drawing.Point(192, 379);
-            this.cmbCategory.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cmbCategory.Margin = new System.Windows.Forms.Padding(6);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(388, 33);
             this.cmbCategory.TabIndex = 19;
@@ -257,7 +255,7 @@
             // 
             this.btnDeleteImg.Enabled = false;
             this.btnDeleteImg.Location = new System.Drawing.Point(796, 306);
-            this.btnDeleteImg.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnDeleteImg.Margin = new System.Windows.Forms.Padding(6);
             this.btnDeleteImg.Name = "btnDeleteImg";
             this.btnDeleteImg.Size = new System.Drawing.Size(182, 44);
             this.btnDeleteImg.TabIndex = 20;
@@ -265,11 +263,23 @@
             this.btnDeleteImg.UseVisualStyleBackColor = true;
             this.btnDeleteImg.Click += new System.EventHandler(this.btnDeleteImg_Click);
             // 
+            // lblMandatory
+            // 
+            this.lblMandatory.AutoSize = true;
+            this.lblMandatory.ForeColor = System.Drawing.Color.Red;
+            this.lblMandatory.Location = new System.Drawing.Point(200, 707);
+            this.lblMandatory.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblMandatory.Name = "lblMandatory";
+            this.lblMandatory.Size = new System.Drawing.Size(122, 25);
+            this.lblMandatory.TabIndex = 21;
+            this.lblMandatory.Text = "*Mandatory";
+            // 
             // FormArticle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1402, 958);
+            this.Controls.Add(this.lblMandatory);
             this.Controls.Add(this.btnDeleteImg);
             this.Controls.Add(this.cmbCategory);
             this.Controls.Add(this.cmbBrand);
@@ -292,7 +302,7 @@
             this.Controls.Add(this.lblCode);
             this.Controls.Add(this.lblTitle);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "FormArticle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormNewArticle";
@@ -326,5 +336,6 @@
         private System.Windows.Forms.ComboBox cmbBrand;
         private System.Windows.Forms.ComboBox cmbCategory;
         private System.Windows.Forms.Button btnDeleteImg;
+        private System.Windows.Forms.Label lblMandatory;
     }
 }

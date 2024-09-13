@@ -81,7 +81,7 @@ namespace TpWinForms
         private void btnModify_Click(object sender, EventArgs e)
         {
             Article art = (Article)dgvArticles.CurrentRow.DataBoundItem;
-            FormArticle form = new FormArticle(art, "Modify");
+            FormArticle form = new FormArticle(art);
             form.ShowDialog();
             LoadGrid();
         }

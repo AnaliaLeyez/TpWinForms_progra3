@@ -17,7 +17,7 @@ namespace Business
 
             try
             {
-                data.setQuery("select Id,Descripcion from CATEGORIAS");
+                data.setQuery("select Id, Descripcion from CATEGORIAS");
                 data.executeRead();
 
 

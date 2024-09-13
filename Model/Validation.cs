@@ -10,15 +10,15 @@ namespace Model
 {
     public class Validation
     {
-        public static void onlyNumbers(KeyPressEventArgs e)
-        {
-            if ((e.KeyChar >= 32 && e.KeyChar <= 47) || (e.KeyChar >= 58 && e.KeyChar <= 255))
-            {
+        //public static void onlyNumbers(KeyPressEventArgs e)
+        //{
+        //    if ((e.KeyChar >= 32 && e.KeyChar <= 47) || (e.KeyChar >= 58 && e.KeyChar <= 255))
+        //    {
 
-                e.Handled = true;
-                return;
-            }
-        }
+        //        e.Handled = true;
+        //        return;
+        //    }
+        //}
         public static bool onlyNumbers(string txt)
         {
             int comma = 0;
@@ -64,6 +64,29 @@ namespace Model
                     return false;
                 }
             }
+            return true;
+        }
+
+        public static bool mandatoryField(TextBox txtCode, TextBox txtName, TextBox txtPrice)
+        {
+            bool vacio = false;
+            if (string.IsNullOrWhiteSpace(txtCode.Text))
+            {
+                txtCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+                vacio = true;
+            }
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                txtName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+                vacio = true;
+            }
+            if (string.IsNullOrWhiteSpace(txtPrice.Text))
+            {
+                txtPrice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+                vacio = true;
+            }
+            if (vacio == true)
+                return false;
             return true;
         }
     }

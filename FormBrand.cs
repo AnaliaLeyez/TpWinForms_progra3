@@ -30,7 +30,7 @@ namespace TpWinForms
             {
                 listBrand = business.list();
                 dgvBrands.DataSource = listBrand;
-
+                dgvBrands.Columns["Id"].Visible = false;
             }
             catch (Exception ex)
             {

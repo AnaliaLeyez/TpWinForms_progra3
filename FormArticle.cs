@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace TpWinForms
@@ -10,38 +11,17 @@ namespace TpWinForms
     {
         private Article art = null;
         private BusinessImage businessImage = null;
-        private string mode;
         public FormArticle()
         {
             InitializeComponent();
             Text = "Add";
             lblTitle.Text = "Add new item";
             btnOk.Text = "Add";
-            btnOk.Enabled = false;
-            btnCancel.Enabled = true;
-            btnCancel.Visible = true;
         }
-        public FormArticle(Article art, string mode)
+        public FormArticle(Article art)
         {
             InitializeComponent();
             this.art = art;
-            this.mode = mode;
-            SetMode(mode);
-        }
-        public void SetMode(string mode) //hay que borrar esto
-        {
-            switch (mode)
-            {
-                case "Modify":
-                    Text = "Modify";
-                    lblTitle.Text = "Modify an existing item";
-                    btnOk.Text = "Modify";
-                    btnCancel.Enabled = true;
-                    btnCancel.Visible = true;
-                    break;
-                default:
-                    throw new ArgumentException("Unknown mode", nameof(mode));
-            }
         }
 
         private void FormArticle_Load(object sender, EventArgs e)
@@ -92,6 +72,11 @@ namespace TpWinForms
 
         private void btnAddImage_Click(object sender, EventArgs e)
         {
+            AddImgToBox();
+        }
+
+        private void AddImgToBox()
+        {
             string urlImage = txtUrlImage.Text;
 
             if (!string.IsNullOrEmpty(urlImage))
@@ -102,7 +87,6 @@ namespace TpWinForms
                 txtUrlImage.Clear();
             }
         }
-
         private void lBoxUrl_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lBoxUrl.SelectedItem != null)
@@ -116,14 +100,33 @@ namespace TpWinForms
         private void btnOk_Click(object sender, EventArgs e)
         {
             BusinessArticle business = new BusinessArticle();
-
-            if (art == null)
-            {
-                art = new Article();
-                art.UrlImages = new List<Model.Image>();
-            }
+            resetColors();
+           
             try
             {
+                if (art == null)
+                {
+                    art = new Article();
+                    art.UrlImages = new List<Model.Image>();
+                }
+                if (!Model.Validation.mandatoryField(txtCode, txtName, txtPrice))
+                    return;
+
+                if (Model.Validation.onlyNumbers(txtPrice.Text))
+                {
+                    txtPrice.Text = txtPrice.Text.Replace('.', ',');
+                    art.Price = decimal.Parse(txtPrice.Text);
+                    if (art.Price == 0)
+                    {
+                        MessageBox.Show("Price must be greater than zero");
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Only real numbers for the price");
+                    return;
+                }
                 art.Code = txtCode.Text;
                 art.Name = txtName.Text;
                 art.Description = txtDescription.Text;
@@ -135,7 +138,7 @@ namespace TpWinForms
                 {
                     art.UrlImages.Add(item);
                 }
-
+                
                 if (art.Id!=0)
                 {
                     business.modifyArticle(art);
@@ -153,7 +156,12 @@ namespace TpWinForms
                 MessageBox.Show(ex.ToString());
             }
         }
-
+        private void resetColors()
+        {
+            txtCode.BackColor = System.Drawing.Color.White;
+            txtName.BackColor = System.Drawing.Color.White;
+            txtPrice.BackColor = System.Drawing.Color.White;
+        }
         private void loadImage(string imagen)
         {
             try
@@ -194,40 +202,11 @@ namespace TpWinForms
             ptbImage.Image = null;
             btnDeleteImg.Enabled = false;
         }
-
-        private void validateField()
-        {
-            var vr = !string.IsNullOrEmpty(txtCode.Text) &&
-            !string.IsNullOrEmpty(txtPrice.Text) &&
-            !string.IsNullOrEmpty(txtName.Text);
-            btnOk.Enabled = vr;
-        }
-
-        private void txtCode_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            validateField();
-        }
-        private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            validateField();
-            Model.Validation.onlyNumbers((KeyPressEventArgs)e);
-        }
-        private void txtName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            validateField();
-            Model.Validation.onlyLetters((KeyPressEventArgs)e);
-        }
         private void txtUrlImage_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                string urlImage = txtUrlImage.Text;  //esto esta repetido en btnAgregarImgClick, habria que dejarlo en otra funcion para no repetir
-
-                if (!string.IsNullOrEmpty(urlImage))
-                {
-                    lBoxUrl.Items.Add(urlImage);
-                    txtUrlImage.Clear();
-                }
+                AddImgToBox();
                 e.Handled = true;
             }
         }

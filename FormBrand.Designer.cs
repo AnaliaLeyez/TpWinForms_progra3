@@ -42,29 +42,33 @@
             this.dgvBrands.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgvBrands.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBrands.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvBrands.Location = new System.Drawing.Point(27, 83);
+            this.dgvBrands.Location = new System.Drawing.Point(66, 86);
+            this.dgvBrands.Margin = new System.Windows.Forms.Padding(6);
             this.dgvBrands.MultiSelect = false;
             this.dgvBrands.Name = "dgvBrands";
             this.dgvBrands.ReadOnly = true;
             this.dgvBrands.RowHeadersVisible = false;
+            this.dgvBrands.RowHeadersWidth = 82;
             this.dgvBrands.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvBrands.Size = new System.Drawing.Size(240, 272);
+            this.dgvBrands.Size = new System.Drawing.Size(227, 316);
             this.dgvBrands.TabIndex = 10;
             // 
             // lblCategory
             // 
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Location = new System.Drawing.Point(291, 190);
+            this.lblCategory.Location = new System.Drawing.Point(521, 125);
+            this.lblCategory.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblCategory.Name = "lblCategory";
-            this.lblCategory.Size = new System.Drawing.Size(60, 13);
+            this.lblCategory.Size = new System.Drawing.Size(117, 25);
             this.lblCategory.TabIndex = 11;
             this.lblCategory.Text = "New Brand";
             // 
             // txtNewBrand
             // 
-            this.txtNewBrand.Location = new System.Drawing.Point(371, 187);
+            this.txtNewBrand.Location = new System.Drawing.Point(681, 120);
+            this.txtNewBrand.Margin = new System.Windows.Forms.Padding(6);
             this.txtNewBrand.Name = "txtNewBrand";
-            this.txtNewBrand.Size = new System.Drawing.Size(138, 20);
+            this.txtNewBrand.Size = new System.Drawing.Size(272, 31);
             this.txtNewBrand.TabIndex = 12;
             this.txtNewBrand.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNewBrand_KeyPress);
             // 
@@ -72,9 +76,10 @@
             // 
             this.btnAdd.BackColor = System.Drawing.Color.White;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.Location = new System.Drawing.Point(309, 241);
+            this.btnAdd.Location = new System.Drawing.Point(576, 337);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(6);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 34);
+            this.btnAdd.Size = new System.Drawing.Size(150, 65);
             this.btnAdd.TabIndex = 13;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -84,9 +89,10 @@
             // 
             this.btnDelete.BackColor = System.Drawing.Color.White;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Location = new System.Drawing.Point(415, 241);
+            this.btnDelete.Location = new System.Drawing.Point(809, 337);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(6);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 34);
+            this.btnDelete.Size = new System.Drawing.Size(149, 65);
             this.btnDelete.TabIndex = 14;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = false;
@@ -94,14 +100,15 @@
             // 
             // FormBrand
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 411);
+            this.ClientSize = new System.Drawing.Size(991, 512);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtNewBrand);
             this.Controls.Add(this.lblCategory);
             this.Controls.Add(this.dgvBrands);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "FormBrand";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormBrand";
