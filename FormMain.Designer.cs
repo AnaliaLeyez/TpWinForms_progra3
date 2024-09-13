@@ -87,7 +87,7 @@
             // pboxImg
             // 
             this.pboxImg.Location = new System.Drawing.Point(460, 88);
-            this.pboxImg.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pboxImg.Margin = new System.Windows.Forms.Padding(2);
             this.pboxImg.Name = "pboxImg";
             this.pboxImg.Size = new System.Drawing.Size(189, 184);
             this.pboxImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -293,6 +293,8 @@
             this.Controls.Add(this.dgvArticles);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(755, 489);
+            this.MinimumSize = new System.Drawing.Size(755, 489);
             this.Name = "FormArticles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Articles Administrator";

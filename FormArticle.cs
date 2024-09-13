@@ -56,7 +56,11 @@ namespace TpWinForms
                         lBoxUrl.Items.Add(item);
                     }
 
-                    loadImage(art.UrlImages[0].UrlImage);
+                    if(lBoxUrl.Items.Count > 0)
+                    {
+                        loadImage(art.UrlImages[0].UrlImage);
+                      
+                    }
                 }
             }
             catch (Exception ex)
