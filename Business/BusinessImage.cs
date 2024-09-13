@@ -101,5 +101,26 @@ namespace Business
                 data.closeConnection();
             }
         }
+
+        public void DeleteAllArtImages(int artId)
+        {
+            DataAccess data = new DataAccess();
+
+            try
+            {
+                data.setQuery("DELETE FROM IMAGENES WHERE IdArticulo = @artId");
+                data.setParameter("@artId", artId);
+                data.executeAction();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.closeConnection();
+            }
+        }
     }
 }

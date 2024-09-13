@@ -2,14 +2,6 @@
 using Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 
@@ -70,7 +62,7 @@ namespace TpWinForms
         }
         private void dgvArticles_SelectionChanged(object sender, EventArgs e)
         {
-                validateSelectCell();
+            validateSelectCell();
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -184,7 +176,7 @@ namespace TpWinForms
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-               advFilter();
+                advFilter();
                 e.Handled = true;
             }
         }
@@ -206,13 +198,14 @@ namespace TpWinForms
             FormBrand form = new FormBrand();
             form.ShowDialog();
         }
-        private void showImage(Article selected) 
+        private void showImage(Article selected)
         {
-            if (!string.IsNullOrEmpty(selected.UrlImages[0].ToString()))
+            if (selected.UrlImages != null && selected.UrlImages.Count > 0 && !string.IsNullOrEmpty(selected.UrlImages[0].ToString()))
                 LoadImg(selected.UrlImages[0].UrlImage);
             else
                 LoadImg("");
         }
+
         private void validateSelectCell()
         {
             if (dgvArticles.CurrentRow != null)
@@ -231,6 +224,6 @@ namespace TpWinForms
                 btnDetails.Enabled = false;
             }
         }
-        
+
     }
 }

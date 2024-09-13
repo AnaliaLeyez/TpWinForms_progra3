@@ -50,6 +50,7 @@ namespace TpWinForms
             else
             {
                 ptBox.ImageLocation = "https://faculty.eng.ufl.edu/elliot-douglas/wp-content/uploads/sites/70/2015/11/img-placeholder.png";
+                
             }
 
             if (article.UrlImages.Count > 1) 

@@ -138,11 +138,14 @@ namespace Business
 
         public void deleteArticle(int id)
         {
+            BusinessImage businessImage = new BusinessImage();
             try
             {
                 data.setQuery("delete from ARTICULOS where id = @id");
                 data.setParameter("@id",id);
                 data.executeAction();
+
+                businessImage.DeleteAllArtImages(id);
             }
             catch (Exception ex)
             {
